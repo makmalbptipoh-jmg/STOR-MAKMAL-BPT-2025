@@ -23,7 +23,7 @@
       font-size: 2.2rem;
       font-weight: 600;
       color: #ffffff;
-      text-shadow: 1px 2px 4px rgba(0,0,0,0.25); /* lebih jelas di atas gradient */
+      text-shadow: 1px 2px 4px rgba(0,0,0,0.25);
     }
   </style>
 
@@ -39,441 +39,441 @@
     </div>
   </section>
 
-
-    <!-- Login first -->
-    <div id="login-box" class="container m-4 pl-4">
-      <div class="field">
-        <label class="label">Password</label>
-        <div class="control">
-          <input class="input" style="width:250px" type="password" id="password-input" placeholder="Masukkan kata laluan">
-        </div>
+  <!-- Login first -->
+  <div id="login-box" class="container m-4 pl-4">
+    <div class="field">
+      <label class="label">Password</label>
+      <div class="control">
+        <input class="input" style="width:250px" type="password" id="password-input" placeholder="Masukkan kata laluan">
       </div>
-      <button class="button is-primary" id="login-button">Masuk</button>
-      <p id="login-msg" class="has-text-danger mt-2"></p>
     </div>
-
-    <!-- Borang (hidden until password is correct) -->
-    <form id="form" class="container m-4 pl-4" style="display:none;">
-      <!-- Logout button -->
-      <div class="field is-grouped is-right">
-        <div class="control">
-          <button type="button" class="button is-success" id="logout-button">Log keluar</button>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Nama Pengguna</label>
-        <div class="control">
-          <div class="select is-fullwidth">
-         <select name="Nama_Pengguna" required>
-  <option value="">-- Sila Pilih Nama Pengguna --</option>
-  <option>MOHAMAD ASWANDI BIN ARIFF</option>
-  <option>MOHD FUZI BIN HASHIM (KU)</option>
-  <option>MOHD FAHAMI BIN ABAS (KU)</option>
-  <option>PASUPATI A/L SUBRAMANIAM</option>
-  <option>SHARIZAN BIN IBRAHIM</option>
-  <option>AZRUL BIN ARIFFIN</option>
-  <option>MOHD ZAHAR BIN IBRAHIM</option>
-  <option>NURUL HUSNA BINTI ISMAYATIM</option>
-  <option>AKRIMI MASUA BINTI MOHAMAD</option>
-  <option>MOHAMMAD NUR HAFIZ BIN HAMID</option>
-  <option>TAMILARASI A/P GANASAN</option>
-  <option>MARIHAM BINTI YAACOB</option>
-  <option>NAZILAH BINTI AHMAD NAZRI</option>
-  <option>KHATIB BIN MD YAN</option>
-  <option>ABDUL RANI BIN ABU BAKAR</option>
-  <option>FAHIMAH ZAIDAH BINTI ZAINUL ABIDIN</option>
-  <option>SURAYA BINTI ABDULLAH SANI</option>
-  <option>SAEDA A/P ANJANG</option>
-  <option>WAN MOHD SUBRI BIN WAN ABDULLAH</option>
-  <option>MUHAMAD ARIF BIN ABDUL KARIM</option>
-  <option>WAN ERDALINA BINTI WAN DALI</option>
-  <option>AMIRUL ZAKI BIN ISHAK</option>
-  <option>AMIRUL ZAHIM BIN MD ZAKARIA</option>
-  <option>MAJDI BIN BALI</option>
-  <option>CLYDERICK BONAVENTURE</option>
-  <option>SURAYA BINTI ANUAR</option>
-  <option>NUR AMIRAH IZZATI BINTI MAT AROP</option>
-  <option>FAKHRUL ANWAR BIN NOOR ARMAN</option>
-  <option>SITI YUS SYAFEERA BINTI SAPUAN</option>
-  <option>NUR ADILAH BINTI MAT NOR</option>
-  <option>RUBENS CHIA</option>
-  <option>WAN MOHD FAIZ BIN WAN MASRI</option>
-  <option>NUR EFFA IZATI BINTI ABDUL HAMID</option>
-  <option>SYAHRUL NIZAM BIN MOHD ZURAINI</option>
-  <option>SAIFUL BAHARIL BIN ABU BAKAR</option>
-  <option>RASHID BIN SHAPEE</option>
-  <option>MOHAMAD HANIF BIN MUSLIMAN</option>
-  <option>MOHD EZRULFAZLY BIN LEMAN</option>
-  <option>FARAH NADIRAH BINTI SHALUDIN</option>
-</select>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Unit Makmal</label>
-        <div class="control">
-          <div class="select is-fullwidth">
-            <select name="Unit_Makmal" required>
-              <option value="">-- Sila Pilih Unit --</option>
-              <option value="MBA">MBA</option>
-              <option value="MPI">MPI</option>
-              <option value="BA">BA</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-  <label class="label">Kod Item</label>
-  <div class="control">
-    <div class="select is-fullwidth">
-      <select name="Kod_Item" required>
-        <option value="">-- Sila Pilih Kod Item --</option>
-        <!-- Acids -->
-        <option>ACID001</option><option>ACID002</option><option>ACID003</option><option>ACID004</option><option>ACID005</option><option>ACID006</option><option>ACID007</option><option>ACID008</option><option>ACID009</option><option>ACID010</option><option>ACID011</option><option>ACID012</option><option>ACID013</option><option>ACID014</option><option>ACID015</option><option>ACID016</option><option>ACID017</option><option>ACID018</option><option>ACID019</option><option>ACID020</option>
-        <!-- Alcohols & Solvents -->
-        <option>ALC001</option><option>ALC002</option><option>ALC003</option><option>ALC004</option><option>ALC005</option><option>ALC006</option><option>ALC007</option><option>ALC008</option><option>ALC009</option><option>ALC010</option><option>ALC011</option><option>ALC012</option>
-        <!-- Ketones & Aldehydes -->
-        <option>KET001</option><option>KET002</option><option>KET003</option>
-        <!-- Indicators -->
-        <option>IND001</option><option>IND002</option><option>IND003</option><option>IND004</option><option>IND005</option>
-        <!-- Oxidizers -->
-        <option>OXI001</option><option>OXI002</option><option>OXI003</option><option>OXI004</option><option>OXI005</option>
-        <!-- Standards -->
-        <option>STD001</option><option>STD002</option><option>STD003</option><option>STD004</option><option>STD005</option><option>STD006</option><option>STD007</option><option>STD008</option><option>STD009</option><option>STD010</option><option>STD011</option><option>STD012</option><option>STD013</option><option>STD014</option><option>STD015</option><option>STD016</option><option>STD017</option><option>STD018</option><option>STD019</option><option>STD020</option><option>STD021</option><option>STD022</option><option>STD023</option><option>STD024</option><option>STD025</option><option>STD026</option>
-        <!-- Others -->
-        <option>OTH001</option><option>OTH002</option><option>OTH003</option><option>OTH004</option><option>OTH005</option><option>OTH006</option><option>OTH007</option><option>OTH008</option>
-        <!-- Cleaning -->
-        <option>CLN001</option><option>CLN002</option><option>CLN003</option><option>CLN004</option><option>CLN005</option><option>CLN006</option><option>CLN007</option><option>CLN008</option>
-        <!-- PPE -->
-        <option>PPE001</option><option>PPE002</option><option>PPE003</option>
-        <!-- Brushes -->
-        <option>BRU001</option><option>BRU002</option><option>BRU003</option><option>BRU004</option><option>BRU005</option><option>BRU006</option>
-        <!-- Lab -->
-        <option>LAB001</option><option>LAB002</option><option>LAB003</option><option>LAB004</option><option>LAB005</option><option>LAB006</option>
-        <!-- Stickers -->
-        <option>STK001</option><option>STK002</option><option>STK003</option>
-        <!-- Other Equipment -->
-        <option>OTH009</option><option>OTH010</option><option>OTH011</option><option>OTH012</option><option>OTH013</option><option>OTH014</option><option>OTH015</option>
-      </select>
-    </div>
+    <button class="button is-primary" id="login-button">Masuk</button>
+    <p id="login-msg" class="has-text-danger mt-2"></p>
   </div>
-</div>
 
-<div class="field">
-  <label class="label">Nama Item</label>
-  <div class="control">
-    <div class="select is-fullwidth">
-      <select name="Nama_Item" required>
-        <option value="">-- Nama Item --</option>
-        <!-- Acids -->
-        <option>NITRIC ACID 69% 2.5 LITER</option>
-        <option>NITRIC ACID 68% 2.5 LITER</option>
-        <option>NITRIC ACID 65% 2.5 LITER</option>
-        <option>NITRIC ACID 65% 1 LITER</option>
-        <option>HYDROCHLORIC ACID 37% 2.5LITER</option>
-        <option>HYDROCHLORIC ACID CARBOY 33% 25LITER</option>
-        <option>HYDROFLUORIC ACID 49% 2.5LITER</option>
-        <option>HYDROFLUORIC ACID 48% 2.5LITER</option>
-        <option>SULFURIC ACID 98% 2.5LITER</option>
-        <option>SULFURIC ACID 95-97% 2.5LITER</option>
-        <option>ORTHO PHOSPHORIC ACID 85% 2.5LITER</option>
-        <option>SULFUROUS ACID 5-6% 2.5LITER</option>
-        <option>PERCHLORIC ACID 70-72% 2.5LITER</option>
-        <option>PERCHLORIC ACID 70% 2.5LITER</option>
-        <option>HYDROBROMIC ACID 48-50%</option>
-        <option>ACETIC ACID GLACIAL 99.8% 2.5LITER</option>
-        <option>ACETIC ACID GLACIAL CARBOY 99.8% 25 LITER</option>
-        <option>THIOGLYCOLIC ACID 1KG</option>
-        <option>MERCAPTOACETIC ACID 98%</option>
-        <option>ACETIC ANHYDRIDE</option>
-        <!-- Alcohols & Solvents -->
-        <option>ETHANOL 99.8% 2.5LITER</option>
-        <option>ETHANOL 70% 2.5LITER</option>
-        <option>ETHANOL ABSOLUTE 2.5L</option>
-        <option>ETHYL ALCOHOL 2.8 L</option>
-        <option>GLYCEROL 2.5 L</option>
-        <option>METHANOL 2.5L</option>
-        <option>METHYL ALCOHOL ANHYDROUS 4L</option>
-        <option>AMYL ALCOHOL</option>
-        <option>1-BUTANOL</option>
-        <option>2-METHYLBUTAN-2-O1</option>
-        <option>BENZENE</option>
-        <option>DIETHYLETHER 99%</option>
-        <!-- Ketones & Aldehydes -->
-        <option>ACETONE 2.5 LITER</option>
-        <option>ACETONE 25 LITER</option>
-        <option>FORMALDEHYDE SOLUTION MIN 37% 2.5L</option>
-        <!-- Indicators -->
-        <option>4-AMINO-3-HYDROXYL-1-NAPTHALINSULFONIC ACID</option>
-        <option>BARIUM DIPHENYLAMINE SULFONIC INDICATOR, 0.2%</option>
-        <option>FERRIC INDICATOR SOLUTION</option>
-        <option>BROMOCRESOL GREEN SOLN. 0.2G/100ML</option>
-        <option>4% PHENOLPHTHALEIN 4G/100ML</option>
-        <!-- Oxidizers -->
-        <option>HYDROGEN PEROXIDE 3%</option>
-        <option>HYDROGEN PEROXIDE 30% 1 LITER</option>
-        <option>HYDROGEN PEROXIDE 30%</option>
-        <option>POTTASIUM PERMANGANATE</option>
-        <option>SODIUM HYPOCHLORITE SOLUTION 15%</option>
-        <!-- Standards -->
-        <option>LEAD STANDARD, 1000PPM</option>
-        <option>TIN STANDARD, 1000PPM</option>
-        <option>MANGANESE STANDARD, 1000PPM</option>
-        <option>CALCIUM, 1000PPM</option>
-        <option>CADMIUM, 1000PPM</option>
-        <option>ALUMINIUM, 1000PPM</option>
-        <option>MANGANESE, 1000PPM</option>
-        <option>LEAD, 1000PPM</option>
-        <option>CHROMIUM, 1000PPM</option>
-        <option>MERKURI, 1000PPM</option>
-        <option>ARSENIC, 1000PPM</option>
-        <option>SILVER, 1000PPM</option>
-        <option>IRON, 1000PPM</option>
-        <option>TITANIUM, 1000PPM</option>
-        <option>POTTASIUM, 1000PPM</option>
-        <option>ZINC, 1000PPM</option>
-        <option>SILICON, 1000PPM</option>
-        <option>NICKEL, 1000PPM</option>
-        <option>SODIUM, 1000PPM</option>
-        <option>COPPER, 1000PPM</option>
-        <option>PHOSPOROUS, 1000PPM</option>
-        <option>SELENIUM, 1000PPM</option>
-        <option>TIN, 1000PPM</option>
-        <option>ZIRCONIUM, 1000PPM</option>
-        <option>MAGNESIUM, 1000PPM</option>
-        <option>AU,AG,CU,ZN,NI,FE 100PPM</option>
-        <!-- Others -->
-        <option>AMMONIA SOLUTION 25% 2.5LITER</option>
-        <option>POLYETHOXY CHAIN</option>
-        <option>PYRIDINE 2.5 LITTER</option>
-        <option>PETROLEUM SPIRIT 40-60</option>
-        <option>n-HEXANE 2.5 L</option>
-        <option>DICHLOROMETHANE 2.5L</option>
-        <option>ETHYLENE GLYEOL 2.5 L</option>
-        <option>3,5,5-TRIMETHYL-1-HEXANOL TECHN 85%</option>
-        <!-- Cleaning -->
-        <option>Baldi</option>
-        <option>Bahan Pencuci (Jenis serbuk)</option>
-        <option>Bahan Pencuci (Cecair)</option>
-        <option>Pencuci tangan Dettol</option>
-        <option>Hand Sanitizer</option>
-        <option>Tuala Good Morning</option>
-        <option>Plastic sampah</option>
-        <option>Mop</option>
-        <!-- PPE -->
-        <option>Apron plastik</option>
-        <option>Sarung tangan getah kuning</option>
-        <option>Eye wash</option>
-        <!-- Brushes -->
-        <option>Berus M.G Chemical</option>
-        <option>Copper wire brush (tembaga)</option>
-        <option>Brass wire brush</option>
-        <option>Justman brush</option>
-        <option>Berus Cat (Catherine Brush)</option>
-        <option>Horse hair Brush</option>
-        <!-- Lab -->
-        <option>Spatula lab</option>
-        <option>Spatula straight edged</option>
-        <option>Sample Boat</option>
-        <option>Bulat Clay</option>
-        <option>Fisher brand Beaker tongs safety</option>
-        <option>Bulb Pipette 30ml</option>
-        <!-- Stickers -->
-        <option>Stiker Putih Pendaftaran Sampel MBA</option>
-        <option>Stiker Riben</option>
-        <option>Stiker Bulat</option>
-        <!-- Other Equipment -->
-        <option>Mini Drawer</option>
-        <option>Tayar Troli</option>
-        <option>Pemetik api</option>
-        <option>Eubiq plug Extention</option>
-        <option>Molykote</option>
-        <option>Container</option>
-        <option>Pembalut Plastik</option>
-      </select>
+  <!-- Borang (hidden until password is correct) -->
+  <form id="form" class="container m-4 pl-4" style="display:none;">
+    <!-- Logout button -->
+    <div class="field is-grouped is-right">
+      <div class="control">
+        <button type="button" class="button is-success" id="logout-button">Log keluar</button>
+      </div>
     </div>
-  </div>
-</div>
 
-
-      <div class="field">
-        <label class="label">Kuantiti</label>
-        <div class="control">
-          <input class="input" type="number" name="Kuantiti" required min="1" max="20" placeholder="1 - 20" />
+    <div class="field">
+      <label class="label">Nama Pengguna</label>
+      <div class="control">
+        <div class="select is-fullwidth">
+          <select name="Nama_Pengguna" required>
+            <option value="">-- Sila Pilih Nama Pengguna --</option>
+            <option>MOHAMAD ASWANDI BIN ARIFF</option>
+            <option>MOHD FUZI BIN HASHIM (KU)</option>
+            <option>MOHD FAHAMI BIN ABAS (KU)</option>
+            <option>PASUPATI A/L SUBRAMANIAM</option>
+            <option>SHARIZAN BIN IBRAHIM</option>
+            <option>AZRUL BIN ARIFFIN</option>
+            <option>MOHD ZAHAR BIN IBRAHIM</option>
+            <option>NURUL HUSNA BINTI ISMAYATIM</option>
+            <option>AKRIMI MASUA BINTI MOHAMAD</option>
+            <option>MOHAMMAD NUR HAFIZ BIN HAMID</option>
+            <option>TAMILARASI A/P GANASAN</option>
+            <option>MARIHAM BINTI YAACOB</option>
+            <option>NAZILAH BINTI AHMAD NAZRI</option>
+            <option>KHATIB BIN MD YAN</option>
+            <option>ABDUL RANI BIN ABU BAKAR</option>
+            <option>FAHIMAH ZAIDAH BINTI ZAINUL ABIDIN</option>
+            <option>SURAYA BINTI ABDULLAH SANI</option>
+            <option>SAEDA A/P ANJANG</option>
+            <option>WAN MOHD SUBRI BIN WAN ABDULLAH</option>
+            <option>MUHAMAD ARIF BIN ABDUL KARIM</option>
+            <option>WAN ERDALINA BINTI WAN DALI</option>
+            <option>AMIRUL ZAKI BIN ISHAK</option>
+            <option>AMIRUL ZAHIM BIN MD ZAKARIA</option>
+            <option>MAJDI BIN BALI</option>
+            <option>CLYDERICK BONAVENTURE</option>
+            <option>SURAYA BINTI ANUAR</option>
+            <option>NUR AMIRAH IZZATI BINTI MAT AROP</option>
+            <option>FAKHRUL ANWAR BIN NOOR ARMAN</option>
+            <option>SITI YUS SYAFEERA BINTI SAPUAN</option>
+            <option>NUR ADILAH BINTI MAT NOR</option>
+            <option>RUBENS CHIA</option>
+            <option>WAN MOHD FAIZ BIN WAN MASRI</option>
+            <option>NUR EFFA IZATI BINTI ABDUL HAMID</option>
+            <option>SYAHRUL NIZAM BIN MOHD ZURAINI</option>
+            <option>SAIFUL BAHARIL BIN ABU BAKAR</option>
+            <option>RASHID BIN SHAPEE</option>
+            <option>MOHAMAD HANIF BIN MUSLIMAN</option>
+            <option>MOHD EZRULFAZLY BIN LEMAN</option>
+            <option>FARAH NADIRAH BINTI SHALUDIN</option>
+          </select>
         </div>
       </div>
+    </div>
 
-      <div class="field">
-        <label class="label">Tujuan Kegunaan</label>
-        <div class="control">
-          <textarea class="textarea" name="Tujuan_Kegunaan" placeholder="Maklumat Kegunaan"></textarea>
+    <div class="field">
+      <label class="label">Unit Makmal</label>
+      <div class="control">
+        <div class="select is-fullwidth">
+          <select name="Unit_Makmal" required>
+            <option value="">-- Sila Pilih Unit --</option>
+            <option value="MBA">MBA</option>
+            <option value="MPI">MPI</option>
+            <option value="BA">BA</option>
+          </select>
         </div>
       </div>
+    </div>
 
-      <div class="field">
-        <label class="label">Setuju Terma</label>
-        <div class="control">
-          <label class="checkbox">
-            <input type="checkbox" name="Setuju_Terma" value="yes" required /> Saya bersetuju dengan terma dan syarat
-          </label>
+    <div class="field">
+      <label class="label">Kod Item</label>
+      <div class="control">
+        <div class="select is-fullwidth">
+          <select name="Kod_Item" required>
+            <option value="">-- Sila Pilih Kod Item --</option>
+            <!-- Acids -->
+            <option>ACID001</option><option>ACID002</option><option>ACID003</option><option>ACID004</option><option>ACID005</option><option>ACID006</option><option>ACID007</option><option>ACID008</option><option>ACID009</option><option>ACID010</option><option>ACID011</option><option>ACID012</option><option>ACID013</option><option>ACID014</option><option>ACID015</option><option>ACID016</option><option>ACID017</option><option>ACID018</option><option>ACID019</option><option>ACID020</option>
+            <!-- Alcohols & Solvents -->
+            <option>ALC001</option><option>ALC002</option><option>ALC003</option><option>ALC004</option><option>ALC005</option><option>ALC006</option><option>ALC007</option><option>ALC008</option><option>ALC009</option><option>ALC010</option><option>ALC011</option><option>ALC012</option>
+            <!-- Ketones & Aldehydes -->
+            <option>KET001</option><option>KET002</option><option>KET003</option>
+            <!-- Indicators -->
+            <option>IND001</option><option>IND002</option><option>IND003</option><option>IND004</option><option>IND005</option>
+            <!-- Oxidizers -->
+            <option>OXI001</option><option>OXI002</option><option>OXI003</option><option>OXI004</option><option>OXI005</option>
+            <!-- Standards -->
+            <option>STD001</option><option>STD002</option><option>STD003</option><option>STD004</option><option>STD005</option><option>STD006</option><option>STD007</option><option>STD008</option><option>STD009</option><option>STD010</option><option>STD011</option><option>STD012</option><option>STD013</option><option>STD014</option><option>STD015</option><option>STD016</option><option>STD017</option><option>STD018</option><option>STD019</option><option>STD020</option><option>STD021</option><option>STD022</option><option>STD023</option><option>STD024</option><option>STD025</option><option>STD026</option>
+            <!-- Others -->
+            <option>OTH001</option><option>OTH002</option><option>OTH003</option><option>OTH004</option><option>OTH005</option><option>OTH006</option><option>OTH007</option><option>OTH008</option>
+            <!-- Cleaning -->
+            <option>CLN001</option><option>CLN002</option><option>CLN003</option><option>CLN004</option><option>CLN005</option><option>CLN006</option><option>CLN007</option><option>CLN008</option>
+            <!-- PPE -->
+            <option>PPE001</option><option>PPE002</option><option>PPE003</option>
+            <!-- Brushes -->
+            <option>BRU001</option><option>BRU002</option><option>BRU003</option><option>BRU004</option><option>BRU005</option><option>BRU006</option>
+            <!-- Lab -->
+            <option>LAB001</option><option>LAB002</option><option>LAB003</option><option>LAB004</option><option>LAB005</option><option>LAB006</option>
+            <!-- Stickers -->
+            <option>STK001</option><option>STK002</option><option>STK003</option>
+            <!-- Other Equipment -->
+            <option>OTH009</option><option>OTH010</option><option>OTH011</option><option>OTH012</option><option>OTH013</option><option>OTH014</option><option>OTH015</option>
+          </select>
         </div>
       </div>
+    </div>
 
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-primary" type="submit" id="submit-button">Hantar</button>
-        </div>
-        <div class="control">
-          <button class="button is-danger" type="button" id="cancel-button">Batal</button>
+    <div class="field">
+      <label class="label">Nama Item</label>
+      <div class="control">
+        <div class="select is-fullwidth">
+          <select name="Nama_Item" required>
+            <option value="">-- Nama Item --</option>
+
+            <!-- Acids -->
+            <option>NITRIC ACID 69% 2.5 LITER</option>
+            <option>NITRIC ACID 68% 2.5 LITER</option>
+            <option>NITRIC ACID 65% 2.5 LITER</option>
+            <option>NITRIC ACID 65% 1 LITER</option>
+            <option>HYDROCHLORIC ACID 37% 2.5LITER</option>
+            <option>HYDROCHLORIC ACID CARBOY 33% 25LITER</option>
+            <option>HYDROFLUORIC ACID 49% 2.5LITER</option>
+            <option>HYDROFLUORIC ACID 48% 2.5LITER</option>
+            <option>SULFURIC ACID 98% 2.5LITER</option>
+            <option>SULFURIC ACID 95-97% 2.5LITER</option>
+            <option>ORTHO PHOSPHORIC ACID 85% 2.5LITER</option>
+            <option>SULFUROUS ACID 5-6% 2.5LITER</option>
+            <option>PERCHLORIC ACID 70-72% 2.5LITER</option>
+            <option>PERCHLORIC ACID 70% 2.5LITER</option>
+            <option>HYDROBROMIC ACID 48-50%</option>
+            <option>ACETIC ACID GLACIAL 99.8% 2.5LITER</option>
+            <option>ACETIC ACID GLACIAL CARBOY 99.8% 25 LITER</option>
+            <option>THIOGLYCOLIC ACID 1KG</option>
+            <option>MERCAPTOACETIC ACID 98%</option>
+            <option>ACETIC ANHYDRIDE</option>
+
+            <!-- Alcohols & Solvents -->
+            <option>ETHANOL 99.8% 2.5LITER</option>
+            <option>ETHANOL 70% 2.5LITER</option>
+            <option>ETHANOL ABSOLUTE 2.5L</option>
+            <option>ETHYL ALCOHOL 2.8 L</option>
+            <option>GLYCEROL 2.5 L</option>
+            <option>METHANOL 2.5L</option>
+            <option>METHYL ALCOHOL ANHYDROUS 4L</option>
+            <option>AMYL ALCOHOL</option>
+            <option>1-BUTANOL</option>
+            <option>2-METHYLBUTAN-2-O1</option>
+            <option>BENZENE</option>
+            <option>DIETHYLETHER 99%</option>
+
+            <!-- Ketones & Aldehydes -->
+            <option>ACETONE 2.5 LITER</option>
+            <option>ACETONE 25 LITER</option>
+            <option>FORMALDEHYDE SOLUTION MIN 37% 2.5L</option>
+
+            <!-- Indicators -->
+            <option>4-AMINO-3-HYDROXYL-1-NAPTHALINSULFONIC ACID</option>
+            <option>BARIUM DIPHENYLAMINE SULFONIC INDICATOR, 0.2%</option>
+            <option>FERRIC INDICATOR SOLUTION</option>
+            <option>BROMOCRESOL GREEN SOLN. 0.2G/100ML</option>
+            <option>4% PHENOLPHTHALEIN 4G/100ML</option>
+
+            <!-- Peroxides & Oxidizers -->
+            <option>HYDROGEN PEROXIDE 3%</option>
+            <option>HYDROGEN PEROXIDE 30% 1 LITER</option>
+            <option>HYDROGEN PEROXIDE 30%</option>
+            <option>POTASSIUM PERMANGANATE</option>
+            <option>SODIUM HYPOCHLORITE SOLUTION 15%</option>
+
+            <!-- Standards & Elements -->
+            <option>LEAD STANDARD, 1000PPM</option>
+            <option>TIN STANDARD, 1000PPM</option>
+            <option>MANGANESE STANDARD, 1000PPM</option>
+            <option>CALCIUM, 1000PPM</option>
+            <option>CADMIUM, 1000PPM</option>
+            <option>ALUMINIUM, 1000PPM</option>
+            <option>MANGANESE, 1000PPM</option>
+            <option>LEAD, 1000PPM</option>
+            <option>CHROMIUM, 1000PPM</option>
+            <option>MERKURI, 1000PPM</option>
+            <option>ARSENIC, 1000PPM</option>
+            <option>SILVER, 1000PPM</option>
+            <option>IRON, 1000PPM</option>
+            <option>TITANIUM, 1000PPM</option>
+            <option>POTASSIUM, 1000PPM</option>
+            <option>ZINC, 1000PPM</option>
+            <option>SILICON, 1000PPM</option>
+            <option>NICKEL, 1000PPM</option>
+            <option>SODIUM, 1000PPM</option>
+            <option>COPPER,1000PPM</option>
+            <option>PHOSPOROUS, 1000PPM</option>
+            <option>SELENIUM, 1000PPM</option>
+            <option>TIN, 1000PPM</option>
+            <option>ZIRCONIUM, 1000PPM</option>
+            <option>MAGNESIUM, 1000PPM</option>
+            <option>AU,AG,CU,ZN,NI,FE 100PPM</option>
+
+            <!-- Others (original) -->
+            <option>AMMONIA SOLUTION 25% 2.5LITER</option>
+            <option>POLYETHOXY CHAIN</option>
+            <option>PYRIDINE 2.5 LITER</option>
+            <option>PETROLEUM SPIRIT 40-60</option>
+            <option>n-HEXANE 2.5 L</option>
+            <option>DICHLOROMETHANE 2.5L</option>
+            <option>ETHYLENE GLYCOL 2.5 L</option>
+            <option>3,5,5-TRIMETHYL-1-HEXANOL TECHN 85%</option>
+
+            <!-- Cleaning -->
+            <option>Baldi</option>
+            <option>Bahan Pencuci (Jenis serbuk)</option>
+            <option>Bahan Pencuci (Cecair)</option>
+            <option>Pencuci tangan Dettol</option>
+            <option>Hand Sanitizer</option>
+            <option>Tuala Good Morning</option>
+            <option>Plastic sampah</option>
+            <option>Mop</option>
+
+            <!-- PPE -->
+            <option>Apron plastik</option>
+            <option>Sarung tangan getah kuning</option>
+            <option>Eye wash</option>
+
+            <!-- Brushes -->
+            <option>Berus M.G Chemical</option>
+            <option>Copper wire brush (tembaga)</option>
+            <option>Brass wire brush</option>
+            <option>Justman brush</option>
+            <option>Berus Cat (Catherine Brush)</option>
+            <option>Horse hair Brush</option>
+
+            <!-- Lab -->
+            <option>Spatula lab</option>
+            <option>Spatula straight edged</option>
+            <option>Sample Boat</option>
+            <option>Bulat Clay</option>
+            <option>Fisher brand Beaker tongs safety</option>
+            <option>Bulb Pipette 30ml</option>
+
+            <!-- Stickers -->
+            <option>Stiker Putih Pendaftaran Sampel MBA</option>
+            <option>Stiker Riben</option>
+            <option>Stiker Bulat</option>
+
+            <!-- Other Equipment -->
+            <option>Mini Drawer</option>
+            <option>Tayar Troli</option>
+            <option>Pemetik api</option>
+            <option>Eubiq plug Extention</option>
+            <option>Molykote</option>
+            <option>Container</option>
+            <option>Pembalut Plastik</option>
+          </select>
         </div>
       </div>
-    </form>
+    </div>
 
-    <!-- Mesej status -->
-    <div id="message" class="container" style="display:none;"></div>
+    <div class="field">
+      <label class="label">Kuantiti</label>
+      <div class="control">
+        <input class="input" type="number" name="Kuantiti" required min="1" max="20" placeholder="1 - 20" />
+      </div>
+    </div>
 
-    <script>
-      // Password gate
-      const loginBox = document.getElementById("login-box");
-      const loginBtn = document.getElementById("login-button");
-      const loginMsg = document.getElementById("login-msg");
-      const formBox  = document.getElementById("form");
-      const CORRECT_PASSWORD = "Lab2025";
-      const SESSION_KEY = "bpt_logged_in";
+    <div class="field">
+      <label class="label">Tujuan Kegunaan</label>
+      <div class="control">
+        <textarea class="textarea" name="Tujuan_Kegunaan" placeholder="Maklumat Kegunaan"></textarea>
+      </div>
+    </div>
 
-      function showForm(){
-        loginBox.style.display = "none";
-        formBox.style.display = "block";
-      }
+    <div class="field">
+      <label class="label">Setuju Terma</label>
+      <div class="control">
+        <label class="checkbox">
+          <input type="checkbox" name="Setuju_Terma" value="yes" required /> Saya bersetuju dengan terma dan syarat
+        </label>
+      </div>
+    </div>
 
-      // Restore session
-      if (sessionStorage.getItem(SESSION_KEY) === "1") {
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-primary" type="submit" id="submit-button">Hantar</button>
+      </div>
+      <div class="control">
+        <button class="button is-danger" type="button" id="cancel-button">Batal</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Mesej status -->
+  <div id="message" class="container" style="display:none;"></div>
+
+  <script>
+    // Password gate
+    const loginBox = document.getElementById("login-box");
+    const loginBtn = document.getElementById("login-button");
+    const loginMsg = document.getElementById("login-msg");
+    const formBox  = document.getElementById("form");
+    const CORRECT_PASSWORD = "Lab2025";
+    const SESSION_KEY = "bpt_logged_in";
+
+    function showForm(){
+      loginBox.style.display = "none";
+      formBox.style.display = "block";
+    }
+
+    // Restore session
+    if (sessionStorage.getItem(SESSION_KEY) === "1") {
+      showForm();
+    }
+
+    loginBtn.addEventListener("click", function(){
+      const pw = document.getElementById("password-input").value;
+      if (pw === CORRECT_PASSWORD){
+        sessionStorage.setItem(SESSION_KEY, "1");
         showForm();
+        loginMsg.textContent = "";
+        document.getElementById("password-input").value = "";
+      } else {
+        loginMsg.textContent = "Kata laluan salah!";
       }
+    });
 
-      loginBtn.addEventListener("click", function(){
-        const pw = document.getElementById("password-input").value;
-        if (pw === CORRECT_PASSWORD){
-          sessionStorage.setItem(SESSION_KEY, "1");
-          showForm();
-          loginMsg.textContent = "";
-          document.getElementById("password-input").value = "";
-        } else {
-          loginMsg.textContent = "Kata laluan salah!";
-        }
-      });
+    // Logout
+    const logoutBtn = document.getElementById("logout-button");
+    logoutBtn.addEventListener("click", () => {
+      sessionStorage.removeItem(SESSION_KEY);
+      formBox.style.display = "none";
+      loginBox.style.display = "block";
+    });
 
-      // Logout
-      const logoutBtn = document.getElementById("logout-button");
-      logoutBtn.addEventListener("click", () => {
-        sessionStorage.removeItem(SESSION_KEY);
-        formBox.style.display = "none";
-        loginBox.style.display = "block";
-      });
+    // Form submit
+    const form = document.getElementById("form");
+    const submitButton = document.getElementById("submit-button");
+    const cancelButton = document.getElementById("cancel-button");
+    const messageDiv = document.getElementById("message");
 
-      // Form submit
-      const form = document.getElementById("form");
-      const submitButton = document.getElementById("submit-button");
-      const cancelButton = document.getElementById("cancel-button");
-      const messageDiv = document.getElementById("message");
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyAtEO6DNB0y_1a2TOrvyA2YwDMGOtZ7C9rtwjliXre44tiT3S71RBZBrBtlYnwGcddVg/exec";
 
-      const scriptURL = "https://script.google.com/macros/s/AKfycbyAtEO6DNB0y_1a2TOrvyA2YwDMGOtZ7C9rtwjliXre44tiT3S71RBZBrBtlYnwGcddVg/exec";
+    function setMessage(type, text){
+      messageDiv.innerHTML = '<div class="notification is-'+type+'">'+text+'</div>';
+      messageDiv.style.display = "block";
+    }
 
-      function setMessage(type, text){
-        messageDiv.innerHTML = '<div class="notification is-'+type+'">'+text+'</div>';
-        messageDiv.style.display = "block";
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      if (sessionStorage.getItem(SESSION_KEY) !== "1") {
+        setMessage("danger", "Sila log masuk dahulu.");
+        return;
       }
+      setMessage("info", "Sedang menghantar...");
+      submitButton.disabled = true;
+      submitButton.classList.add("is-loading");
 
-      form.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        if (sessionStorage.getItem(SESSION_KEY) !== "1") {
-          setMessage("danger", "Sila log masuk dahulu.");
-          return;
-        }
-        setMessage("info", "Sedang menghantar...");
-        submitButton.disabled = true;
-        submitButton.classList.add("is-loading");
+      try {
+        const formData = new FormData(form);
+        const formDataObj = {};
+        for (let [key, value] of formData.entries()) formDataObj[key] = value;
 
-        try {
-          const formData = new FormData(form);
-          const formDataObj = {};
-          for (let [key, value] of formData.entries()) formDataObj[key] = value;
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: JSON.stringify(formDataObj),
+          headers: { "Content-Type": "text/plain;charset=utf-8" }
+        });
 
-          const response = await fetch(scriptURL, {
-            method: "POST",
-            body: JSON.stringify(formDataObj),
-            headers: { "Content-Type": "text/plain;charset=utf-8" }
-          });
-
-          const data = await response.json();
+        const data = await response.json();
 
         if (data.status === "success") {
-  // Ambil item & kuantiti yang dihantar
-  const item = formDataObj["Nama_Item"];
-  const qty  = formDataObj["Kuantiti"];
-
-  // Paparkan popup notifikasi
-  alert("Permintaan berjaya!\nItem: " + item + "\nJumlah: " + qty);
-
-  // Tunjuk mesej status dan reset borang
-  setMessage("success", data.message || "Berjaya dihantar!");
-  form.reset();
-} else {
-  throw new Error(data.message || "Gagal dihantar");
-}
-
-        } catch (error) {
-          setMessage("danger", "Ralat: " + error.message);
-        } finally {
-          submitButton.disabled = false;
-          submitButton.classList.remove("is-loading");
-          setTimeout(() => { messageDiv.style.display = "none"; }, 4000);
+          const item = formDataObj["Nama_Item"];
+          const qty  = formDataObj["Kuantiti"];
+          alert("Permintaan berjaya!\nItem: " + item + "\nJumlah: " + qty);
+          setMessage("success", data.message || "Berjaya dihantar!");
+          form.reset();
+        } else {
+          throw new Error(data.message || "Gagal dihantar");
         }
-      });
 
-      cancelButton.addEventListener("click", function () {
-        form.reset();
-        messageDiv.style.display = "none";
-      });
-
-      // Pautkan Kod_Item <-> Nama_Item
-      const codeSelect = document.querySelector('select[name="Kod_Item"]');
-      const nameSelect = document.querySelector('select[name="Nama_Item"]');
-
-      const mapCodeToName = {};
-      const mapNameToCode = {};
-      const len = Math.min(codeSelect.options.length, nameSelect.options.length);
-
-      for (let i = 1; i < len; i++) {
-        const code = codeSelect.options[i].value || codeSelect.options[i].textContent;
-        const name = nameSelect.options[i].value || nameSelect.options[i].textContent;
-        mapCodeToName[code] = name;
-        mapNameToCode[name] = code;
+      } catch (error) {
+        setMessage("danger", "Ralat: " + error.message);
+      } finally {
+        submitButton.disabled = false;
+        submitButton.classList.remove("is-loading");
+        setTimeout(() => { messageDiv.style.display = "none"; }, 4000);
       }
+    });
 
-      codeSelect.addEventListener('change', () => {
-        const code = codeSelect.value;
-        nameSelect.value = mapCodeToName[code] || "";
-      });
+    cancelButton.addEventListener("click", function () {
+      form.reset();
+      messageDiv.style.display = "none";
+    });
 
-      nameSelect.addEventListener('change', () => {
-        const name = nameSelect.value;
-        codeSelect.value = mapNameToCode[name] || "";
-      });
+    // Pautkan Kod_Item <-> Nama_Item
+    const codeSelect = document.querySelector('select[name="Kod_Item"]');
+    const nameSelect = document.querySelector('select[name="Nama_Item"]');
 
-      form.addEventListener('submit', () => {
-        const code = codeSelect.value;
-        if (mapCodeToName[code]) nameSelect.value = mapCodeToName[code];
-      });
-    </script>
-  </body>
+    const mapCodeToName = {};
+    const mapNameToCode = {};
+    const len = Math.min(codeSelect.options.length, nameSelect.options.length);
+
+    for (let i = 1; i < len; i++) {
+      const code = codeSelect.options[i].value || codeSelect.options[i].textContent;
+      const name = nameSelect.options[i].value || nameSelect.options[i].textContent;
+      mapCodeToName[code] = name;
+      mapNameToCode[name] = code;
+    }
+
+    codeSelect.addEventListener('change', () => {
+      const code = codeSelect.value;
+      nameSelect.value = mapCodeToName[code] || "";
+    });
+
+    nameSelect.addEventListener('change', () => {
+      const name = nameSelect.value;
+      codeSelect.value = mapNameToCode[name] || "";
+    });
+
+    form.addEventListener('submit', () => {
+      const code = codeSelect.value;
+      if (mapCodeToName[code]) nameSelect.value = mapCodeToName[code];
+    });
+  </script>
+</body>
 </html>
-
-
-
-
-
