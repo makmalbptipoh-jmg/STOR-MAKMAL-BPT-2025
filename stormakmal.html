@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stor Makmal BPT 2025</title>
+
+  <!-- Bulma -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
+  
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Gradient untuk header */
+    .hero.is-primary {
+      background: linear-gradient(135deg, #16a085, #1abc9c); /* hijau makmal */
+    }
+
+    /* Styling teks */
+    h1.title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #ffffff;
+      text-shadow: 1px 2px 4px rgba(0,0,0,0.25); /* lebih jelas di atas gradient */
+    }
+  </style>
+
+  <link rel="stylesheet" href="stor-makmal.css" />
+</head>
+
+<body class="theme-forest">
+  <section class="hero is-primary is-bold">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">Stor Makmal BPT 2025</h1>
+      </div>
+    </div>
+  </section>
+
+
+    <!-- Login first -->
+    <div id="login-box" class="container m-4 pl-4">
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input class="input" style="width:250px" type="password" id="password-input" placeholder="Masukkan kata laluan">
+        </div>
+      </div>
+      <button class="button is-primary" id="login-button">Masuk</button>
+      <p id="login-msg" class="has-text-danger mt-2"></p>
+    </div>
+
+    <!-- Borang (hidden until password is correct) -->
+    <form id="form" class="container m-4 pl-4" style="display:none;">
+      <!-- Logout button -->
+      <div class="field is-grouped is-right">
+        <div class="control">
+          <button type="button" class="button is-success" id="logout-button">Log keluar</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Nama Pengguna</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select name="Nama_Pengguna" required>
+              <option value="">-- Sila Pilih Nama Pengguna --</option>
+              <option>Aisyah Binti Zulkifli</option>
+              <option>Muhammad Firdaus Bin Hamdan</option>
+              <option>Noraini Binti Kassim</option>
+              <option>Ahmad Hakim Bin Roslan</option>
+              <option>Farah Liyana Binti Rahim</option>
+              <option>Syafiq Bin Azmi</option>
+              <option>Nurul Huda Binti Karim</option>
+              <option>Khairul Anwar Bin Hassan</option>
+              <option>Siti Nabila Binti Mahmud</option>
+              <option>Zainal Bin Ismail</option>
+              <option>Hafizah Binti Talib</option>
+              <option>Danial Bin Idris</option>
+              <option>Maisarah Binti Jamal</option>
+              <option>Azlan Bin Fauzi</option>
+              <option>Izzati Binti Omar</option>
+              <option>Luqman Bin Salleh</option>
+              <option>Wan Nadiah Binti Ariffin</option>
+              <option>Faizal Bin Ibrahim</option>
+              <option>Hani Binti Yusuf</option>
+              <option>Shahrul Bin Mokhtar</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Unit Makmal</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select name="Unit_Makmal" required>
+              <option value="">-- Sila Pilih Unit --</option>
+              <option value="MBA">MBA</option>
+              <option value="MPI">MPI</option>
+              <option value="BA">BA</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Kod Item</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select name="Kod_Item" required>
+              <option value="">-- Sila Pilih Kod Item --</option>
+              <option>AC001</option><option>AC002</option><option>AC003</option><option>AC004</option><option>AC005</option><option>AC006</option><option>AC007</option><option>AC008</option>
+              <option>SA001</option><option>SA002</option><option>SA003</option><option>SA004</option><option>SA005</option><option>SA006</option><option>SA007</option><option>SA008</option>
+              <option>PPE001</option><option>PPE002</option><option>PPE003</option><option>PPE004</option><option>PPE005</option><option>PPE006</option><option>PPE007</option><option>PPE008</option>
+              <option>EQ001</option><option>EQ002</option><option>EQ003</option><option>EQ004</option><option>EQ005</option><option>EQ006</option><option>EQ007</option><option>EQ008</option>
+              <option>SUP001</option><option>SUP002</option><option>SUP003</option><option>SUP004</option><option>SUP005</option><option>SUP006</option><option>SUP007</option><option>SUP008</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Nama Item</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select name="Nama_Item" required>
+              <option value="">--  Nama Item --</option>
+              <option>Asid Hidroklorik</option><option>Asid Sulfurik</option><option>Asid Nitrik</option><option>Asid Asetik</option><option>Asid Triklorasetik</option><option>Asid Formik</option><option>Asid Perklorik</option><option>Asid Fosforik</option>
+              <option>Natrium Klorida</option><option>Kalium Nitrat</option><option>Natrium Sulfat</option><option>Plumbum(II) Nitrat</option><option>Kalsium Karbonat</option><option>Magnesium Sulfat</option><option>Ferum(III) Klorida</option><option>Kuprum(II) Sulfat</option>
+              <option>Sarung tangan nitril</option><option>Goggles keselamatan</option><option>Mask muka 3 lapis</option><option>Apron makmal</option><option>Pelindung muka penuh</option><option>Penutup kepala</option><option>Kasut keselamatan</option><option>Pelindung lengan</option>
+              <option>Beaker</option><option>Pipet Volumetrik</option><option>Tabung uji</option><option>Buret</option><option>Penimbang digital</option><option>Silinder penyukat</option><option>Penunu Bunsen</option><option>Rak tabung uji</option>
+              <option>Etanol 70%</option><option>Botol semburan</option><option>Pemadam api</option><option>Natrium Hipoklorit</option><option>Bahan penyerap tumpahan</option><option>Kotak keselamatan bahan kimia</option><option>Pelabelan bahan kimia</option><option>Jadual pengurusan luput</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Kuantiti</label>
+        <div class="control">
+          <input class="input" type="number" name="Kuantiti" required min="1" max="20" placeholder="1 - 20" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Tujuan Kegunaan</label>
+        <div class="control">
+          <textarea class="textarea" name="Tujuan_Kegunaan" placeholder="Maklumat Kegunaan"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Setuju Terma</label>
+        <div class="control">
+          <label class="checkbox">
+            <input type="checkbox" name="Setuju_Terma" value="yes" required /> Saya bersetuju dengan terma dan syarat
+          </label>
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" type="submit" id="submit-button">Hantar</button>
+        </div>
+        <div class="control">
+          <button class="button is-danger" type="button" id="cancel-button">Batal</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Mesej status -->
+    <div id="message" class="container" style="display:none;"></div>
+
+    <script>
+      // Password gate
+      const loginBox = document.getElementById("login-box");
+      const loginBtn = document.getElementById("login-button");
+      const loginMsg = document.getElementById("login-msg");
+      const formBox  = document.getElementById("form");
+      const CORRECT_PASSWORD = "Lab2025";
+      const SESSION_KEY = "bpt_logged_in";
+
+      function showForm(){
+        loginBox.style.display = "none";
+        formBox.style.display = "block";
+      }
+
+      // Restore session
+      if (sessionStorage.getItem(SESSION_KEY) === "1") {
+        showForm();
+      }
+
+      loginBtn.addEventListener("click", function(){
+        const pw = document.getElementById("password-input").value;
+        if (pw === CORRECT_PASSWORD){
+          sessionStorage.setItem(SESSION_KEY, "1");
+          showForm();
+          loginMsg.textContent = "";
+          document.getElementById("password-input").value = "";
+        } else {
+          loginMsg.textContent = "Kata laluan salah!";
+        }
+      });
+
+      // Logout
+      const logoutBtn = document.getElementById("logout-button");
+      logoutBtn.addEventListener("click", () => {
+        sessionStorage.removeItem(SESSION_KEY);
+        formBox.style.display = "none";
+        loginBox.style.display = "block";
+      });
+
+      // Form submit
+      const form = document.getElementById("form");
+      const submitButton = document.getElementById("submit-button");
+      const cancelButton = document.getElementById("cancel-button");
+      const messageDiv = document.getElementById("message");
+
+      const scriptURL = "https://script.google.com/macros/s/AKfycbyAtEO6DNB0y_1a2TOrvyA2YwDMGOtZ7C9rtwjliXre44tiT3S71RBZBrBtlYnwGcddVg/exec";
+
+      function setMessage(type, text){
+        messageDiv.innerHTML = '<div class="notification is-'+type+'">'+text+'</div>';
+        messageDiv.style.display = "block";
+      }
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        if (sessionStorage.getItem(SESSION_KEY) !== "1") {
+          setMessage("danger", "Sila log masuk dahulu.");
+          return;
+        }
+        setMessage("info", "Sedang menghantar...");
+        submitButton.disabled = true;
+        submitButton.classList.add("is-loading");
+
+        try {
+          const formData = new FormData(form);
+          const formDataObj = {};
+          for (let [key, value] of formData.entries()) formDataObj[key] = value;
+
+          const response = await fetch(scriptURL, {
+            method: "POST",
+            body: JSON.stringify(formDataObj),
+            headers: { "Content-Type": "text/plain;charset=utf-8" }
+          });
+
+          const data = await response.json();
+
+        if (data.status === "success") {
+  // Ambil item & kuantiti yang dihantar
+  const item = formDataObj["Nama_Item"];
+  const qty  = formDataObj["Kuantiti"];
+
+  // Paparkan popup notifikasi
+  alert("Permintaan berjaya!\nItem: " + item + "\nJumlah: " + qty);
+
+  // Tunjuk mesej status dan reset borang
+  setMessage("success", data.message || "Berjaya dihantar!");
+  form.reset();
+} else {
+  throw new Error(data.message || "Gagal dihantar");
+}
+
+        } catch (error) {
+          setMessage("danger", "Ralat: " + error.message);
+        } finally {
+          submitButton.disabled = false;
+          submitButton.classList.remove("is-loading");
+          setTimeout(() => { messageDiv.style.display = "none"; }, 4000);
+        }
+      });
+
+      cancelButton.addEventListener("click", function () {
+        form.reset();
+        messageDiv.style.display = "none";
+      });
+
+      // Pautkan Kod_Item <-> Nama_Item
+      const codeSelect = document.querySelector('select[name="Kod_Item"]');
+      const nameSelect = document.querySelector('select[name="Nama_Item"]');
+
+      const mapCodeToName = {};
+      const mapNameToCode = {};
+      const len = Math.min(codeSelect.options.length, nameSelect.options.length);
+
+      for (let i = 1; i < len; i++) {
+        const code = codeSelect.options[i].value || codeSelect.options[i].textContent;
+        const name = nameSelect.options[i].value || nameSelect.options[i].textContent;
+        mapCodeToName[code] = name;
+        mapNameToCode[name] = code;
+      }
+
+      codeSelect.addEventListener('change', () => {
+        const code = codeSelect.value;
+        nameSelect.value = mapCodeToName[code] || "";
+      });
+
+      nameSelect.addEventListener('change', () => {
+        const name = nameSelect.value;
+        codeSelect.value = mapNameToCode[name] || "";
+      });
+
+      form.addEventListener('submit', () => {
+        const code = codeSelect.value;
+        if (mapCodeToName[code]) nameSelect.value = mapCodeToName[code];
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+
+/* ================================
+   Stor Makmal BPT 2025 – Custom CSS
+   Works with Bulma 0.9.x
+   ================================ */
+
+:root{
+  --bg-1:#0b132b;           /* deep navy */
+  --bg-2:#1e293b;           /* slate navy */
+  --brand:#0e7afe;          /* primary brand */
+  --accent:#22c55e;         /* success accent */
+  --danger:#f14668;         /* Bulma danger */
+  --card:#ffffff;
+  --ink:#0f172a;
+  --muted:#64748b;
+  --radius:12px;
+  --shadow:0 14px 36px rgba(0,0,0,.18);
+}
+
+/* Background with subtle lab-grid texture */
+html,body{height:100%}
+body{
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.04) 0 40px, rgba(255,255,255,0) 40px 80px),
+    linear-gradient(120deg,var(--bg-1),var(--bg-2));
+  color:#e5e7eb;
+}
+
+/* Hero override to keep Bulma look but richer gradient */
+.hero.is-primary{
+  background: linear-gradient(110deg,#0e7afe 0%, #0b8df0 40%, #0bd1a8 100%);
+}
+.hero.is-primary .title{color:#fff; text-shadow:0 2px 14px rgba(0,0,0,.25)}
+
+/* Form container as a floating card */
+#form.container{
+  background:var(--card);
+  color:var(--ink);
+  border-radius:var(--radius);
+  padding:28px 24px;
+  box-shadow:var(--shadow);
+  max-width:980px;
+}
+
+/* Field spacing & labels */
+.field{margin-bottom:18px}
+.label{font-weight:700; color:#0b1220}
+
+/* Inputs / Textareas / Selects – consistent focus and radius */
+.input, .textarea, .select select{
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  box-shadow:none;
+  color:var(--ink);
+}
+.input::placeholder, .textarea::placeholder{color:#9aa4b2}
+.input:focus, .textarea:focus, .select select:focus{
+  border-color: var(--brand);
+  box-shadow: 0 0 0 0.15rem rgba(14,122,254,.18);
+}
+
+/* Make Bulma fullwidth selects visually consistent */
+.select.is-fullwidth select{
+  width:100%;
+  background-color:#fff;
+}
+
+/* Number input min/max hint */
+input[type="number"]{
+  -moz-appearance:textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button{
+  -webkit-appearance:none; margin:0;
+}
+
+/* Buttons */
+.button.is-primary{
+  background-color:var(--brand);
+  border-color: transparent;
+  font-weight:700;
+  border-radius:10px;
+  box-shadow:0 10px 20px rgba(14,122,254,.24);
+  transition:transform .12s ease, box-shadow .12s ease, filter .18s ease;
+}
+.button.is-primary:hover{filter:brightness(1.05); transform:translateY(-1px)}
+.button.is-primary.is-loading{box-shadow:none}
+
+.button.is-danger{
+  border-radius:10px;
+  box-shadow:0 10px 20px rgba(241,70,104,.22);
+}
+.button.is-danger:hover{filter:brightness(1.03); transform:translateY(-1px)}
+
+/* Message box (we’ll let JS toggle colors, but give a solid base) */
+#message{
+  display:none; 
+  margin:20px; 
+  padding:12px 16px; 
+  border-radius:10px; 
+  font-weight:700;
+  color:#0f172a;
+  background:#fff5d7; /* neutral base; JS may override */
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+
+/* Success / error helper classes if you choose to use them later */
+#message.is-success{background:#e8fff4; color:#0a3d2e; border:1px solid #baf3d0}
+#message.is-danger{background:#fff0f3; color:#5a1020; border:1px solid #ffd0d8}
+
+/* Spacing tweaks on mobile */
+@media (max-width:768px){
+  #form.container{padding:22px 16px}
+}
