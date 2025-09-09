@@ -503,7 +503,6 @@
       const searchTerm = e.target.value.toLowerCase();
       if (searchTerm.length > 0) {
         const filteredItems = allItems.filter(item =>
-          item.name.toLowerCase().includes(searchTerm) ||
           item.code.toLowerCase().includes(searchTerm)
         );
         showSearchResults(filteredItems);
@@ -584,6 +583,7 @@
   </script>
 </body>
 </html>
+
 
 
 
