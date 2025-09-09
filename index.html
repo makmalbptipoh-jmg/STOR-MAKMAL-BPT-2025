@@ -3,11 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stor Makmal JMG BPT </title>
+  <title>Stor Makmal JMG BPT</title>
 
-  <!-- Bulma -->
+  <!-- Bulma CSS Framework -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
   
+  <!-- Font Awesome untuk ikon carian -->
+  <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
   <!-- Google Font: Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
   
@@ -23,11 +26,36 @@
       font-size: 2.2rem;
       font-weight: 600;
       color: #ffffff;
-      text-shadow: 1px 2px 4px rgba(0,0,0,0.25);
+      text-shadow: 1px 2px 4px rgba(0,0,0,0.25); /* lebih jelas di atas gradient */
+    }
+    
+    /* Style untuk search bar */
+    .search-container {
+      margin-top: 1rem;
+      margin-right: 1rem;
+    }
+
+    /* Styling untuk hasil carian dalam modal */
+    .search-result-item {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid #dbdbdb;
+      cursor: pointer; /* jadikan item boleh klik */
+      transition: background-color 0.2s;
+    }
+    .search-result-item:hover {
+      background-color: #f5f5f5; /* kesan hover */
+    }
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+    .search-result-item p {
+      font-weight: bold;
+    }
+    .search-result-item span {
+      font-style: italic;
+      color: #7a7a7a;
     }
   </style>
-
-  <link rel="stylesheet" href="stor-makmal.css" />
 </head>
 
 <body class="theme-forest">
@@ -42,7 +70,7 @@
   <!-- Login first -->
   <div id="login-box" class="container m-4 pl-4">
     <div class="field">
-      <label class="label">Password</label>
+      <label class="label">Kata Laluan</label>
       <div class="control">
         <input class="input" style="width:250px" type="password" id="password-input" placeholder="Masukkan kata laluan">
       </div>
@@ -53,6 +81,18 @@
 
   <!-- Borang (hidden until password is correct) -->
   <form id="form" class="container m-4 pl-4" style="display:none;">
+    <!-- Bar carian di bahagian atas kanan (dipindahkan di sini) -->
+    <div class="container search-container">
+      <div class="field has-addons is-pulled-right">
+        <div class="control has-icons-left">
+          <input class="input" type="text" id="item-search-input" placeholder="Cari Kod/Nama Item...">
+          <span class="icon is-small is-left">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+
     <!-- Logout button -->
     <div class="field is-grouped is-right">
       <div class="control">
@@ -123,39 +163,13 @@
         </div>
       </div>
     </div>
-
+    
     <div class="field">
       <label class="label">Kod Item</label>
       <div class="control">
         <div class="select is-fullwidth">
-          <select name="Kod_Item" required>
+          <select name="Kod_Item" id="kod-item-select" required>
             <option value="">-- Sila Pilih Kod Item --</option>
-            <!-- Acids -->
-            <option>ACID001</option><option>ACID002</option><option>ACID003</option><option>ACID004</option><option>ACID005</option><option>ACID006</option><option>ACID007</option><option>ACID008</option><option>ACID009</option><option>ACID010</option><option>ACID011</option><option>ACID012</option><option>ACID013</option><option>ACID014</option><option>ACID015</option><option>ACID016</option><option>ACID017</option><option>ACID018</option><option>ACID019</option><option>ACID020</option>
-            <!-- Alcohols & Solvents -->
-            <option>ALC001</option><option>ALC002</option><option>ALC003</option><option>ALC004</option><option>ALC005</option><option>ALC006</option><option>ALC007</option><option>ALC008</option><option>ALC009</option><option>ALC010</option><option>ALC011</option><option>ALC012</option>
-            <!-- Ketones & Aldehydes -->
-            <option>KET001</option><option>KET002</option><option>KET003</option>
-            <!-- Indicators -->
-            <option>IND001</option><option>IND002</option><option>IND003</option><option>IND004</option><option>IND005</option>
-            <!-- Oxidizers -->
-            <option>OXI001</option><option>OXI002</option><option>OXI003</option><option>OXI004</option><option>OXI005</option>
-            <!-- Standards -->
-            <option>STD001</option><option>STD002</option><option>STD003</option><option>STD004</option><option>STD005</option><option>STD006</option><option>STD007</option><option>STD008</option><option>STD009</option><option>STD010</option><option>STD011</option><option>STD012</option><option>STD013</option><option>STD014</option><option>STD015</option><option>STD016</option><option>STD017</option><option>STD018</option><option>STD019</option><option>STD020</option><option>STD021</option><option>STD022</option><option>STD023</option><option>STD024</option><option>STD025</option><option>STD026</option>
-            <!-- Others -->
-            <option>OTH001</option><option>OTH002</option><option>OTH003</option><option>OTH004</option><option>OTH005</option><option>OTH006</option><option>OTH007</option><option>OTH008</option>
-            <!-- Cleaning -->
-            <option>CLN001</option><option>CLN002</option><option>CLN003</option><option>CLN004</option><option>CLN005</option><option>CLN006</option><option>CLN007</option><option>CLN008</option>
-            <!-- PPE -->
-            <option>PPE001</option><option>PPE002</option><option>PPE003</option>
-            <!-- Brushes -->
-            <option>BRU001</option><option>BRU002</option><option>BRU003</option><option>BRU004</option><option>BRU005</option><option>BRU006</option>
-            <!-- Lab -->
-            <option>LAB001</option><option>LAB002</option><option>LAB003</option><option>LAB004</option><option>LAB005</option><option>LAB006</option>
-            <!-- Stickers -->
-            <option>STK001</option><option>STK002</option><option>STK003</option>
-            <!-- Other Equipment -->
-            <option>OTH009</option><option>OTH010</option><option>OTH011</option><option>OTH012</option><option>OTH013</option><option>OTH014</option><option>OTH015</option>
           </select>
         </div>
       </div>
@@ -165,146 +179,8 @@
       <label class="label">Nama Item</label>
       <div class="control">
         <div class="select is-fullwidth">
-          <select name="Nama_Item" required>
+          <select name="Nama_Item" id="nama-item-select" required>
             <option value="">-- Nama Item --</option>
-
-            <!-- Acids -->
-            <option>NITRIC ACID 69% 2.5 LITER</option>
-            <option>NITRIC ACID 68% 2.5 LITER</option>
-            <option>NITRIC ACID 65% 2.5 LITER</option>
-            <option>NITRIC ACID 65% 1 LITER</option>
-            <option>HYDROCHLORIC ACID 37% 2.5LITER</option>
-            <option>HYDROCHLORIC ACID CARBOY 33% 25LITER</option>
-            <option>HYDROFLUORIC ACID 49% 2.5LITER</option>
-            <option>HYDROFLUORIC ACID 48% 2.5LITER</option>
-            <option>SULFURIC ACID 98% 2.5LITER</option>
-            <option>SULFURIC ACID 95-97% 2.5LITER</option>
-            <option>ORTHO PHOSPHORIC ACID 85% 2.5LITER</option>
-            <option>SULFUROUS ACID 5-6% 2.5LITER</option>
-            <option>PERCHLORIC ACID 70-72% 2.5LITER</option>
-            <option>PERCHLORIC ACID 70% 2.5LITER</option>
-            <option>HYDROBROMIC ACID 48-50%</option>
-            <option>ACETIC ACID GLACIAL 99.8% 2.5LITER</option>
-            <option>ACETIC ACID GLACIAL CARBOY 99.8% 25 LITER</option>
-            <option>THIOGLYCOLIC ACID 1KG</option>
-            <option>MERCAPTOACETIC ACID 98%</option>
-            <option>ACETIC ANHYDRIDE</option>
-
-            <!-- Alcohols & Solvents -->
-            <option>ETHANOL 99.8% 2.5LITER</option>
-            <option>ETHANOL 70% 2.5LITER</option>
-            <option>ETHANOL ABSOLUTE 2.5L</option>
-            <option>ETHYL ALCOHOL 2.8 L</option>
-            <option>GLYCEROL 2.5 L</option>
-            <option>METHANOL 2.5L</option>
-            <option>METHYL ALCOHOL ANHYDROUS 4L</option>
-            <option>AMYL ALCOHOL</option>
-            <option>1-BUTANOL</option>
-            <option>2-METHYLBUTAN-2-O1</option>
-            <option>BENZENE</option>
-            <option>DIETHYLETHER 99%</option>
-
-            <!-- Ketones & Aldehydes -->
-            <option>ACETONE 2.5 LITER</option>
-            <option>ACETONE 25 LITER</option>
-            <option>FORMALDEHYDE SOLUTION MIN 37% 2.5L</option>
-
-            <!-- Indicators -->
-            <option>4-AMINO-3-HYDROXYL-1-NAPTHALINSULFONIC ACID</option>
-            <option>BARIUM DIPHENYLAMINE SULFONIC INDICATOR, 0.2%</option>
-            <option>FERRIC INDICATOR SOLUTION</option>
-            <option>BROMOCRESOL GREEN SOLN. 0.2G/100ML</option>
-            <option>4% PHENOLPHTHALEIN 4G/100ML</option>
-
-            <!-- Peroxides & Oxidizers -->
-            <option>HYDROGEN PEROXIDE 3%</option>
-            <option>HYDROGEN PEROXIDE 30% 1 LITER</option>
-            <option>HYDROGEN PEROXIDE 30%</option>
-            <option>POTASSIUM PERMANGANATE</option>
-            <option>SODIUM HYPOCHLORITE SOLUTION 15%</option>
-
-            <!-- Standards & Elements -->
-            <option>LEAD STANDARD, 1000PPM</option>
-            <option>TIN STANDARD, 1000PPM</option>
-            <option>MANGANESE STANDARD, 1000PPM</option>
-            <option>CALCIUM, 1000PPM</option>
-            <option>CADMIUM, 1000PPM</option>
-            <option>ALUMINIUM, 1000PPM</option>
-            <option>MANGANESE, 1000PPM</option>
-            <option>LEAD, 1000PPM</option>
-            <option>CHROMIUM, 1000PPM</option>
-            <option>MERKURI, 1000PPM</option>
-            <option>ARSENIC, 1000PPM</option>
-            <option>SILVER, 1000PPM</option>
-            <option>IRON, 1000PPM</option>
-            <option>TITANIUM, 1000PPM</option>
-            <option>POTASSIUM, 1000PPM</option>
-            <option>ZINC, 1000PPM</option>
-            <option>SILICON, 1000PPM</option>
-            <option>NICKEL, 1000PPM</option>
-            <option>SODIUM, 1000PPM</option>
-            <option>COPPER,1000PPM</option>
-            <option>PHOSPOROUS, 1000PPM</option>
-            <option>SELENIUM, 1000PPM</option>
-            <option>TIN, 1000PPM</option>
-            <option>ZIRCONIUM, 1000PPM</option>
-            <option>MAGNESIUM, 1000PPM</option>
-            <option>AU,AG,CU,ZN,NI,FE 100PPM</option>
-
-            <!-- Others (original) -->
-            <option>AMMONIA SOLUTION 25% 2.5LITER</option>
-            <option>POLYETHOXY CHAIN</option>
-            <option>PYRIDINE 2.5 LITER</option>
-            <option>PETROLEUM SPIRIT 40-60</option>
-            <option>n-HEXANE 2.5 L</option>
-            <option>DICHLOROMETHANE 2.5L</option>
-            <option>ETHYLENE GLYCOL 2.5 L</option>
-            <option>3,5,5-TRIMETHYL-1-HEXANOL TECHN 85%</option>
-
-            <!-- Cleaning -->
-            <option>Baldi</option>
-            <option>Bahan Pencuci (Jenis serbuk)</option>
-            <option>Bahan Pencuci (Cecair)</option>
-            <option>Pencuci tangan Dettol</option>
-            <option>Hand Sanitizer</option>
-            <option>Tuala Good Morning</option>
-            <option>Plastic sampah</option>
-            <option>Mop</option>
-
-            <!-- PPE -->
-            <option>Apron plastik</option>
-            <option>Sarung tangan getah kuning</option>
-            <option>Eye wash</option>
-
-            <!-- Brushes -->
-            <option>Berus M.G Chemical</option>
-            <option>Copper wire brush (tembaga)</option>
-            <option>Brass wire brush</option>
-            <option>Justman brush</option>
-            <option>Berus Cat (Catherine Brush)</option>
-            <option>Horse hair Brush</option>
-
-            <!-- Lab -->
-            <option>Spatula lab</option>
-            <option>Spatula straight edged</option>
-            <option>Sample Boat</option>
-            <option>Bulat Clay</option>
-            <option>Fisher brand Beaker tongs safety</option>
-            <option>Bulb Pipette 30ml</option>
-
-            <!-- Stickers -->
-            <option>Stiker Putih Pendaftaran Sampel MBA</option>
-            <option>Stiker Riben</option>
-            <option>Stiker Bulat</option>
-
-            <!-- Other Equipment -->
-            <option>Mini Drawer</option>
-            <option>Tayar Troli</option>
-            <option>Pemetik api</option>
-            <option>Eubiq plug Extention</option>
-            <option>Molykote</option>
-            <option>Container</option>
-            <option>Pembalut Plastik</option>
           </select>
         </div>
       </div>
@@ -345,9 +221,26 @@
 
   <!-- Mesej status -->
   <div id="message" class="container" style="display:none;"></div>
+  
+  <!-- Modal untuk memaparkan hasil carian -->
+  <div class="modal" id="search-modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Hasil Carian</p>
+        <button class="delete" aria-label="close" id="close-modal-button"></button>
+      </header>
+      <section class="modal-card-body" id="modal-content-body">
+        <!-- Hasil carian akan disuntik di sini -->
+      </section>
+      <footer class="modal-card-foot is-justify-content-flex-end">
+        <button class="button is-success" id="ok-modal-button">OK</button>
+      </footer>
+    </div>
+  </div>
 
   <script>
-    // Password gate
+    // Gerbang kata laluan
     const loginBox = document.getElementById("login-box");
     const loginBtn = document.getElementById("login-button");
     const loginMsg = document.getElementById("login-msg");
@@ -355,12 +248,13 @@
     const CORRECT_PASSWORD = "Lab2025";
     const SESSION_KEY = "bpt_logged_in";
 
+    // Fungsi untuk memaparkan borang
     function showForm(){
       loginBox.style.display = "none";
       formBox.style.display = "block";
     }
 
-    // Restore session
+    // Pulihkan sesi jika pengguna sudah log masuk
     if (sessionStorage.getItem(SESSION_KEY) === "1") {
       showForm();
     }
@@ -377,7 +271,7 @@
       }
     });
 
-    // Logout
+    // Log keluar
     const logoutBtn = document.getElementById("logout-button");
     logoutBtn.addEventListener("click", () => {
       sessionStorage.removeItem(SESSION_KEY);
@@ -385,19 +279,234 @@
       loginBox.style.display = "block";
     });
 
-    // Form submit
+    // Data Item penuh
+    const allItems = [
+      { code: "ACID001", name: "NITRIC ACID 69% 2.5 LITER" },
+      { code: "ACID002", name: "NITRIC ACID 68% 2.5 LITER" },
+      { code: "ACID003", name: "NITRIC ACID 65% 2.5 LITER" },
+      { code: "ACID004", name: "NITRIC ACID 65% 1 LITER" },
+      { code: "ACID005", name: "HYDROCHLORIC ACID 37% 2.5LITER" },
+      { code: "ACID006", name: "HYDROCHLORIC ACID CARBOY 33% 25LITER" },
+      { code: "ACID007", name: "HYDROFLUORIC ACID 49% 2.5LITER" },
+      { code: "ACID008", name: "HYDROFLUORIC ACID 48% 2.5LITER" },
+      { code: "ACID009", name: "SULFURIC ACID 98% 2.5LITER" },
+      { code: "ACID010", name: "SULFURIC ACID 95-97% 2.5LITER" },
+      { code: "ACID011", name: "ORTHO PHOSPHORIC ACID 85% 2.5LITER" },
+      { code: "ACID012", name: "SULFUROUS ACID 5-6% 2.5LITER" },
+      { code: "ACID013", name: "PERCHLORIC ACID 70-72% 2.5LITER" },
+      { code: "ACID014", name: "PERCHLORIC ACID 70% 2.5LITER" },
+      { code: "ACID015", name: "HYDROBROMIC ACID 48-50%" },
+      { code: "ACID016", name: "ACETIC ACID GLACIAL 99.8% 2.5LITER" },
+      { code: "ACID017", name: "ACETIC ACID GLACIAL CARBOY 99.8% 25 LITER" },
+      { code: "ACID018", name: "THIOGLYCOLIC ACID 1KG" },
+      { code: "ACID019", name: "MERCAPTOACETIC ACID 98%" },
+      { code: "ACID020", name: "ACETIC ANHYDRIDE" },
+      { code: "ALC001", name: "ETHANOL 99.8% 2.5LITER" },
+      { code: "ALC002", name: "ETHANOL 70% 2.5LITER" },
+      { code: "ALC003", name: "ETHANOL ABSOLUTE 2.5L" },
+      { code: "ALC004", name: "ETHYL ALCOHOL 2.8 L" },
+      { code: "ALC005", name: "GLYCEROL 2.5 L" },
+      { code: "ALC006", name: "METHANOL 2.5L" },
+      { code: "ALC007", name: "METHYL ALCOHOL ANHYDROUS 4L" },
+      { code: "ALC008", name: "AMYL ALCOHOL" },
+      { code: "ALC009", name: "1-BUTANOL" },
+      { code: "ALC010", name: "2-METHYLBUTAN-2-O1" },
+      { code: "ALC011", name: "BENZENE" },
+      { code: "ALC012", name: "DIETHYLETHER 99%" },
+      { code: "KET001", name: "ACETONE 2.5 LITER" },
+      { code: "KET002", name: "ACETONE 25 LITER" },
+      { code: "KET003", name: "FORMALDEHYDE SOLUTION MIN 37% 2.5L" },
+      { code: "IND001", name: "4-AMINO-3-HYDROXYL-1-NAPTHALINSULFONIC ACID" },
+      { code: "IND002", name: "BARIUM DIPHENYLAMINE SULFONIC INDICATOR, 0.2%" },
+      { code: "IND003", name: "FERRIC INDICATOR SOLUTION" },
+      { code: "IND004", name: "BROMOCRESOL GREEN SOLN. 0.2G/100ML" },
+      { code: "IND005", name: "4% PHENOLPHTHALEIN 4G/100ML" },
+      { code: "OXI001", name: "HYDROGEN PEROXIDE 3%" },
+      { code: "OXI002", name: "HYDROGEN PEROXIDE 30% 1 LITER" },
+      { code: "OXI003", name: "HYDROGEN PEROXIDE 30%" },
+      { code: "OXI004", name: "POTASSIUM PERMANGANATE" },
+      { code: "OXI005", name: "SODIUM HYPOCHLORITE SOLUTION 15%" },
+      { code: "STD001", name: "LEAD STANDARD, 1000PPM" },
+      { code: "STD002", name: "TIN STANDARD, 1000PPM" },
+      { code: "STD003", name: "MANGANESE STANDARD, 1000PPM" },
+      { code: "STD004", name: "CALCIUM, 1000PPM" },
+      { code: "STD005", name: "CADMIUM, 1000PPM" },
+      { code: "STD006", name: "ALUMINIUM, 1000PPM" },
+      { code: "STD007", name: "MANGANESE, 1000PPM" },
+      { code: "STD008", name: "LEAD, 1000PPM" },
+      { code: "STD009", name: "CHROMIUM, 1000PPM" },
+      { code: "STD010", name: "MERKURI, 1000PPM" },
+      { code: "STD011", name: "ARSENIC, 1000PPM" },
+      { code: "STD012", name: "SILVER, 1000PPM" },
+      { code: "STD013", name: "IRON, 1000PPM" },
+      { code: "STD014", name: "TITANIUM, 1000PPM" },
+      { code: "STD015", name: "POTASSIUM, 1000PPM" },
+      { code: "STD016", name: "ZINC, 1000PPM" },
+      { code: "STD017", name: "SILICON, 1000PPM" },
+      { code: "STD018", name: "NICKEL, 1000PPM" },
+      { code: "STD019", name: "SODIUM, 1000PPM" },
+      { code: "STD020", name: "COPPER,1000PPM" },
+      { code: "STD021", name: "PHOSPOROUS, 1000PPM" },
+      { code: "STD022", name: "SELENIUM, 1000PPM" },
+      { code: "STD023", name: "TIN, 1000PPM" },
+      { code: "STD024", name: "ZIRCONIUM, 1000PPM" },
+      { code: "STD025", name: "MAGNESIUM, 1000PPM" },
+      { code: "STD026", name: "AU,AG,CU,ZN,NI,FE 100PPM" },
+      { code: "OTH001", name: "AMMONIA SOLUTION 25% 2.5LITER" },
+      { code: "OTH002", name: "POLYETHOXY CHAIN" },
+      { code: "OTH003", name: "PYRIDINE 2.5 LITER" },
+      { code: "OTH004", name: "PETROLEUM SPIRIT 40-60" },
+      { code: "OTH005", name: "n-HEXANE 2.5 L" },
+      { code: "OTH006", name: "DICHLOROMETHANE 2.5L" },
+      { code: "OTH007", name: "ETHYLENE GLYCOL 2.5 L" },
+      { code: "OTH008", name: "3,5,5-TRIMETHYL-1-HEXANOL TECHN 85%" },
+      { code: "CLN001", name: "Baldi" },
+      { code: "CLN002", name: "Bahan Pencuci (Jenis serbuk)" },
+      { code: "CLN003", name: "Bahan Pencuci (Cecair)" },
+      { code: "CLN004", name: "Pencuci tangan Dettol" },
+      { code: "CLN005", name: "Hand Sanitizer" },
+      { code: "CLN006", name: "Tuala Good Morning" },
+      { code: "CLN007", name: "Plastic sampah" },
+      { code: "CLN008", name: "Mop" },
+      { code: "PPE001", name: "Apron plastik" },
+      { code: "PPE002", name: "Sarung tangan getah kuning" },
+      { code: "PPE003", name: "Eye wash" },
+      { code: "BRU001", name: "Berus M.G Chemical" },
+      { code: "BRU002", name: "Copper wire brush (tembaga)" },
+      { code: "BRU003", name: "Brass wire brush" },
+      { code: "BRU004", name: "Justman brush" },
+      { code: "BRU005", name: "Berus Cat (Catherine Brush)" },
+      { code: "BRU006", name: "Horse hair Brush" },
+      { code: "LAB001", name: "Spatula lab" },
+      { code: "LAB002", name: "Spatula straight edged" },
+      { code: "LAB003", name: "Sample Boat" },
+      { code: "LAB004", name: "Bulat Clay" },
+      { code: "LAB005", name: "Fisher brand Beaker tongs safety" },
+      { code: "LAB006", name: "Bulb Pipette 30ml" },
+      { code: "STK001", name: "Stiker Putih Pendaftaran Sampel MBA" },
+      { code: "STK002", name: "Stiker Riben" },
+      { code: "STK003", name: "Stiker Bulat" },
+      { code: "OTH009", name: "Mini Drawer" },
+      { code: "OTH010", name: "Tayar Troli" },
+      { code: "OTH011", name: "Pemetik api" },
+      { code: "OTH012", name: "Eubiq plug Extention" },
+      { code: "OTH013", name: "Molykote" },
+      { code: "OTH014", name: "Container" },
+      { code: "OTH015", name: "Pembalut Plastik" }
+    ];
+
+    // Hubungan antara dropdown dan carian
+    const codeSelect = document.getElementById('kod-item-select');
+    const nameSelect = document.getElementById('nama-item-select');
+    const searchInput = document.getElementById('item-search-input');
+    
+    // Rujukan borang dan butang
     const form = document.getElementById("form");
     const submitButton = document.getElementById("submit-button");
     const cancelButton = document.getElementById("cancel-button");
     const messageDiv = document.getElementById("message");
 
+    // Rujukan elemen modal carian
+    const searchModal = document.getElementById('search-modal');
+    const modalContent = document.getElementById('modal-content-body');
+    const closeModalBtn = document.getElementById('close-modal-button');
+    const okModalBtn = document.getElementById('ok-modal-button');
+    const modalBackground = document.querySelector('.modal-background');
+
     const scriptURL = "https://script.google.com/macros/s/AKfycbyAtEO6DNB0y_1a2TOrvyA2YwDMGOtZ7C9rtwjliXre44tiT3S71RBZBrBtlYnwGcddVg/exec";
 
+    // Isi pilihan dalam kedua-dua dropdown dengan semua item pada mulanya
+    function populateSelects(items) {
+      codeSelect.innerHTML = '<option value="">-- Sila Pilih Kod Item --</option>';
+      nameSelect.innerHTML = '<option value="">-- Nama Item --</option>';
+
+      items.forEach(item => {
+        const codeOption = document.createElement('option');
+        codeOption.value = item.code;
+        codeOption.textContent = item.code;
+        codeSelect.appendChild(codeOption);
+
+        const nameOption = document.createElement('option');
+        nameOption.value = item.name;
+        nameOption.textContent = item.name;
+        nameSelect.appendChild(nameOption);
+      });
+    }
+
+    // Panggilan awal untuk mengisi dropdown dengan semua item
+    populateSelects(allItems);
+
+    // Fungsi baharu untuk memilih item dari modal dan mengisi borang
+    function selectItem(code, name) {
+      codeSelect.value = code;
+      nameSelect.value = name;
+      searchModal.classList.remove('is-active');
+    }
+
+    // Fungsi untuk memaparkan hasil carian dalam modal
+    function showSearchResults(results) {
+      if (results.length === 0) {
+        modalContent.innerHTML = '<p class="has-text-centered">Tiada hasil carian ditemui.</p>';
+      } else {
+        let htmlContent = '';
+        results.forEach(item => {
+          // Tambah 'onclick' event ke setiap item hasil carian
+          htmlContent += `
+            <div class="search-result-item" onclick="selectItem('${item.code}', '${item.name.replace(/'/g, "\\'")}')">
+              <p>${item.name}</p>
+              <span>Kod: ${item.code}</span>
+            </div>
+          `;
+        });
+        modalContent.innerHTML = htmlContent;
+      }
+      searchModal.classList.add('is-active');
+    }
+
+    // Dengar input pada bar carian dan papar hasil dalam modal
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase();
+      if (searchTerm.length > 0) {
+        const filteredItems = allItems.filter(item => 
+          item.name.toLowerCase().includes(searchTerm) || 
+          item.code.toLowerCase().includes(searchTerm)
+        );
+        showSearchResults(filteredItems);
+      } else {
+        // Jika kotak carian kosong, tutup modal
+        searchModal.classList.remove('is-active');
+      }
+    });
+
+    // Pautkan Kod Item dengan Nama Item apabila pilihan Kod berubah
+    codeSelect.addEventListener('change', () => {
+      const selectedCode = codeSelect.value;
+      const selectedItem = allItems.find(item => item.code === selectedCode);
+      if (selectedItem) {
+        nameSelect.value = selectedItem.name;
+      } else {
+        nameSelect.value = "";
+      }
+    });
+
+    // Pautkan Nama Item dengan Kod Item apabila pilihan Nama berubah
+    nameSelect.addEventListener('change', () => {
+      const selectedName = nameSelect.value;
+      const selectedItem = allItems.find(item => item.name === selectedName);
+      if (selectedItem) {
+        codeSelect.value = selectedItem.code;
+      } else {
+        codeSelect.value = "";
+      }
+    });
+    
+    // Fungsi untuk memaparkan mesej status
     function setMessage(type, text){
       messageDiv.innerHTML = '<div class="notification is-'+type+'">'+text+'</div>';
       messageDiv.style.display = "block";
     }
 
+    // Penghantaran borang
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
       if (sessionStorage.getItem(SESSION_KEY) !== "1") {
@@ -412,6 +521,10 @@
         const formData = new FormData(form);
         const formDataObj = {};
         for (let [key, value] of formData.entries()) formDataObj[key] = value;
+        
+        // Dapatkan nama dan kuantiti item
+        const item = formDataObj["Nama_Item"];
+        const qty  = formDataObj["Kuantiti"];
 
         const response = await fetch(scriptURL, {
           method: "POST",
@@ -422,15 +535,11 @@
         const data = await response.json();
 
         if (data.status === "success") {
-          const item = formDataObj["Nama_Item"];
-          const qty  = formDataObj["Kuantiti"];
-          alert("Permintaan berjaya!\nItem: " + item + "\nJumlah: " + qty);
-          setMessage("success", data.message || "Berjaya dihantar!");
+          setMessage("success", `Permintaan berjaya! Item: ${item}, Kuantiti: ${qty}`);
           form.reset();
         } else {
           throw new Error(data.message || "Gagal dihantar");
         }
-
       } catch (error) {
         setMessage("danger", "Ralat: " + error.message);
       } finally {
@@ -440,40 +549,20 @@
       }
     });
 
+    // Butang batal
     cancelButton.addEventListener("click", function () {
       form.reset();
       messageDiv.style.display = "none";
     });
 
-    // Pautkan Kod_Item <-> Nama_Item
-    const codeSelect = document.querySelector('select[name="Kod_Item"]');
-    const nameSelect = document.querySelector('select[name="Nama_Item"]');
+    // Event listener untuk menutup modal
+    const closeModals = () => {
+      searchModal.classList.remove('is-active');
+    };
 
-    const mapCodeToName = {};
-    const mapNameToCode = {};
-    const len = Math.min(codeSelect.options.length, nameSelect.options.length);
-
-    for (let i = 1; i < len; i++) {
-      const code = codeSelect.options[i].value || codeSelect.options[i].textContent;
-      const name = nameSelect.options[i].value || nameSelect.options[i].textContent;
-      mapCodeToName[code] = name;
-      mapNameToCode[name] = code;
-    }
-
-    codeSelect.addEventListener('change', () => {
-      const code = codeSelect.value;
-      nameSelect.value = mapCodeToName[code] || "";
-    });
-
-    nameSelect.addEventListener('change', () => {
-      const name = nameSelect.value;
-      codeSelect.value = mapNameToCode[name] || "";
-    });
-
-    form.addEventListener('submit', () => {
-      const code = codeSelect.value;
-      if (mapCodeToName[code]) nameSelect.value = mapCodeToName[code];
-    });
+    closeModalBtn.addEventListener('click', closeModals);
+    okModalBtn.addEventListener('click', closeModals);
+    modalBackground.addEventListener('click', closeModals);
   </script>
 </body>
 </html>
