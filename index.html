@@ -7,17 +7,22 @@
 
   <!-- Bulma CSS Framework -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
-  
+
   <!-- Font Awesome untuk ikon carian -->
   <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
   <!-- Google Font: Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-  
+
   <style>
-    /* Gradient untuk header */
+    /* Opsyen A: Gradient + gambar bg untuk header hero */
     .hero.is-primary {
-      background: linear-gradient(135deg, #16a085, #1abc9c); /* hijau makmal */
+      background-image:
+        linear-gradient(135deg, rgba(22,160,133,.85), rgba(26,188,156,.85)),
+        url('./bg.jpg');           /* tukar laluan jika fail di folder lain, cth: 'assets/bg.jpg' */
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
 
     /* Styling teks */
@@ -28,33 +33,21 @@
       color: #ffffff;
       text-shadow: 1px 2px 4px rgba(0,0,0,0.25); /* lebih jelas di atas gradient */
     }
-    
+
     /* Style untuk search bar */
-    .search-container {
-      margin-top: 1rem;
-      margin-right: 1rem;
-    }
+    .search-container { margin-top: 1rem; margin-right: 1rem; }
 
     /* Styling untuk hasil carian dalam modal */
     .search-result-item {
       padding: 0.5rem 0.75rem;
       border-bottom: 1px solid #dbdbdb;
-      cursor: pointer; /* jadikan item boleh klik */
+      cursor: pointer;
       transition: background-color 0.2s;
     }
-    .search-result-item:hover {
-      background-color: #f5f5f5; /* kesan hover */
-    }
-    .search-result-item:last-child {
-      border-bottom: none;
-    }
-    .search-result-item p {
-      font-weight: bold;
-    }
-    .search-result-item span {
-      font-style: italic;
-      color: #7a7a7a;
-    }
+    .search-result-item:hover { background-color: #f5f5f5; }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item p { font-weight: bold; }
+    .search-result-item span { font-style: italic; color: #7a7a7a; }
   </style>
 </head>
 
@@ -81,7 +74,7 @@
 
   <!-- Borang (hidden until password is correct) -->
   <form id="form" class="container m-4 pl-4" style="display:none;">
-    <!-- Bar carian di bahagian atas kanan (dipindahkan di sini) -->
+    <!-- Bar carian di bahagian atas kanan -->
     <div class="container search-container">
       <div class="field has-addons is-pulled-right">
         <div class="control has-icons-left">
@@ -163,7 +156,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="field">
       <label class="label">Kod Item</label>
       <div class="control">
@@ -221,7 +214,7 @@
 
   <!-- Mesej status -->
   <div id="message" class="container" style="display:none;"></div>
-  
+
   <!-- Modal untuk memaparkan hasil carian -->
   <div class="modal" id="search-modal">
     <div class="modal-background"></div>
@@ -248,13 +241,11 @@
     const CORRECT_PASSWORD = "Lab2025";
     const SESSION_KEY = "bpt_logged_in";
 
-    // Fungsi untuk memaparkan borang
     function showForm(){
       loginBox.style.display = "none";
       formBox.style.display = "block";
     }
 
-    // Pulihkan sesi jika pengguna sudah log masuk
     if (sessionStorage.getItem(SESSION_KEY) === "1") {
       showForm();
     }
@@ -399,14 +390,14 @@
     const codeSelect = document.getElementById('kod-item-select');
     const nameSelect = document.getElementById('nama-item-select');
     const searchInput = document.getElementById('item-search-input');
-    
-    // Rujukan borang dan butang
+
+    // Rujukan borang & butang
     const form = document.getElementById("form");
     const submitButton = document.getElementById("submit-button");
     const cancelButton = document.getElementById("cancel-button");
     const messageDiv = document.getElementById("message");
 
-    // Rujukan elemen modal carian
+    // Rujukan modal carian
     const searchModal = document.getElementById('search-modal');
     const modalContent = document.getElementById('modal-content-body');
     const closeModalBtn = document.getElementById('close-modal-button');
@@ -415,7 +406,7 @@
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbyAtEO6DNB0y_1a2TOrvyA2YwDMGOtZ7C9rtwjliXre44tiT3S71RBZBrBtlYnwGcddVg/exec";
 
-    // Isi pilihan dalam kedua-dua dropdown dengan semua item pada mulanya
+    // Isi pilihan dropdown
     function populateSelects(items) {
       codeSelect.innerHTML = '<option value="">-- Sila Pilih Kod Item --</option>';
       nameSelect.innerHTML = '<option value="">-- Nama Item --</option>';
@@ -432,25 +423,23 @@
         nameSelect.appendChild(nameOption);
       });
     }
-
-    // Panggilan awal untuk mengisi dropdown dengan semua item
     populateSelects(allItems);
 
-    // Fungsi baharu untuk memilih item dari modal dan mengisi borang
+    // Pilih item dari modal
     function selectItem(code, name) {
       codeSelect.value = code;
       nameSelect.value = name;
       searchModal.classList.remove('is-active');
     }
+    window.selectItem = selectItem; // pastikan boleh diakses dari HTML hasil carian
 
-    // Fungsi untuk memaparkan hasil carian dalam modal
+    // Papar hasil carian dalam modal
     function showSearchResults(results) {
       if (results.length === 0) {
         modalContent.innerHTML = '<p class="has-text-centered">Tiada hasil carian ditemui.</p>';
       } else {
         let htmlContent = '';
         results.forEach(item => {
-          // Tambah 'onclick' event ke setiap item hasil carian
           htmlContent += `
             <div class="search-result-item" onclick="selectItem('${item.code}', '${item.name.replace(/'/g, "\\'")}')">
               <p>${item.name}</p>
@@ -463,50 +452,37 @@
       searchModal.classList.add('is-active');
     }
 
-    // Dengar input pada bar carian dan papar hasil dalam modal
+    // Carian
     searchInput.addEventListener('input', (e) => {
       const searchTerm = e.target.value.toLowerCase();
       if (searchTerm.length > 0) {
-        const filteredItems = allItems.filter(item => 
-          item.name.toLowerCase().includes(searchTerm) || 
+        const filteredItems = allItems.filter(item =>
+          item.name.toLowerCase().includes(searchTerm) ||
           item.code.toLowerCase().includes(searchTerm)
         );
         showSearchResults(filteredItems);
       } else {
-        // Jika kotak carian kosong, tutup modal
         searchModal.classList.remove('is-active');
       }
     });
 
-    // Pautkan Kod Item dengan Nama Item apabila pilihan Kod berubah
+    // Pautan kod <-> nama
     codeSelect.addEventListener('change', () => {
-      const selectedCode = codeSelect.value;
-      const selectedItem = allItems.find(item => item.code === selectedCode);
-      if (selectedItem) {
-        nameSelect.value = selectedItem.name;
-      } else {
-        nameSelect.value = "";
-      }
+      const selectedItem = allItems.find(item => item.code === codeSelect.value);
+      nameSelect.value = selectedItem ? selectedItem.name : "";
+    });
+    nameSelect.addEventListener('change', () => {
+      const selectedItem = allItems.find(item => item.name === nameSelect.value);
+      codeSelect.value = selectedItem ? selectedItem.code : "";
     });
 
-    // Pautkan Nama Item dengan Kod Item apabila pilihan Nama berubah
-    nameSelect.addEventListener('change', () => {
-      const selectedName = nameSelect.value;
-      const selectedItem = allItems.find(item => item.name === selectedName);
-      if (selectedItem) {
-        codeSelect.value = selectedItem.code;
-      } else {
-        codeSelect.value = "";
-      }
-    });
-    
-    // Fungsi untuk memaparkan mesej status
+    // Mesej status
     function setMessage(type, text){
       messageDiv.innerHTML = '<div class="notification is-'+type+'">'+text+'</div>';
       messageDiv.style.display = "block";
     }
 
-    // Penghantaran borang
+    // Hantar borang
     form.addEventListener("submit", async function (e) {
       e.preventDefault();
       if (sessionStorage.getItem(SESSION_KEY) !== "1") {
@@ -521,8 +497,7 @@
         const formData = new FormData(form);
         const formDataObj = {};
         for (let [key, value] of formData.entries()) formDataObj[key] = value;
-        
-        // Dapatkan nama dan kuantiti item
+
         const item = formDataObj["Nama_Item"];
         const qty  = formDataObj["Kuantiti"];
 
@@ -549,21 +524,17 @@
       }
     });
 
-    // Butang batal
+    // Batal
     cancelButton.addEventListener("click", function () {
       form.reset();
       messageDiv.style.display = "none";
     });
 
-    // Event listener untuk menutup modal
-    const closeModals = () => {
-      searchModal.classList.remove('is-active');
-    };
-
-    closeModalBtn.addEventListener('click', closeModals);
-    okModalBtn.addEventListener('click', closeModals);
-    modalBackground.addEventListener('click', closeModals);
+    // Tutup modal
+    const closeModals = () => { searchModal.classList.remove('is-active'); };
+    document.getElementById('close-modal-button').addEventListener('click', closeModals);
+    document.getElementById('ok-modal-button').addEventListener('click', closeModals);
+    document.querySelector('.modal-background').addEventListener('click', closeModals);
   </script>
 </body>
 </html>
-
