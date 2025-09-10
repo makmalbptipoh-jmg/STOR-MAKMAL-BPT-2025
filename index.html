@@ -16,38 +16,67 @@
 
   <style>
     /* Opsyen A: Gradient + gambar bg untuk header hero */
-    .hero.is-primary {
+    .hero.is-primary{
       background-image:
         linear-gradient(135deg, rgba(22,160,133,.85), rgba(26,188,156,.85)),
-        url('./bg.jpg');           /* tukar laluan jika fail di folder lain, cth: 'assets/bg.jpg' */
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
+        url('./bg.jpg'); /* ubah laluan jika perlu */
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
     }
 
-    /* Styling teks */
-    h1.title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 2.2rem;
-      font-weight: 600;
-      color: #ffffff;
-      text-shadow: 1px 2px 4px rgba(0,0,0,0.25);
+    /* Tajuk */
+    h1.title{
+      font-family:'Poppins',sans-serif;
+      font-size:2.2rem;
+      font-weight:600;
+      color:#fff;
+      text-shadow:1px 2px 4px rgba(0,0,0,.25);
     }
 
-    /* Style untuk search bar */
-    .search-container { margin-top: 1rem; margin-right: 1rem; }
-
-    /* Styling untuk hasil carian dalam modal */
-    .search-result-item {
-      padding: 0.5rem 0.75rem;
-      border-bottom: 1px solid #dbdbdb;
-      cursor: pointer;
-      transition: background-color 0.2s;
+    /* Susun atur: carian + logout */
+    .top-actions{
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+      margin-top:1rem;
+      margin-right:1rem;
     }
-    .search-result-item:hover { background-color: #f5f5f5; }
-    .search-result-item:last-child { border-bottom: none; }
-    .search-result-item p { font-weight: bold; }
-    .search-result-item span { font-style: italic; color: #7a7a7a; }
+
+    /* === Pelaras lebar kotak carian === */
+    .top-actions .search-box{
+      flex:0 0 40%;   /* ambil 40% ruang di desktop */
+      max-width:40%;
+    }
+    .top-actions .search-box .input{ width:100%; } /* pastikan input penuh dalam box */
+    .top-actions .logout-btn{ white-space:nowrap; }
+
+    /* Mobile: tindan menegak & search penuh 100% */
+    @media (max-width:768px){
+      .top-actions{
+        flex-direction:column;
+        align-items:stretch;
+        margin-right:0;
+      }
+      .top-actions .search-box{
+        flex:1 1 auto;
+        max-width:100%;
+        width:100%;
+      }
+      .top-actions .logout-btn{ width:100%; }
+    }
+
+    /* Item keputusan carian dalam modal */
+    .search-result-item{
+      padding:.5rem .75rem;
+      border-bottom:1px solid #dbdbdb;
+      cursor:pointer;
+      transition:background-color .2s;
+    }
+    .search-result-item:hover{background:#f5f5f5}
+    .search-result-item:last-child{border-bottom:none}
+    .search-result-item p{font-weight:bold}
+    .search-result-item span{font-style:italic;color:#7a7a7a}
   </style>
 </head>
 
@@ -60,7 +89,7 @@
     </div>
   </section>
 
-  <!-- Login first -->
+  <!-- Login -->
   <div id="login-box" class="container m-4 pl-4">
     <div class="field">
       <label class="label">Kata Laluan</label>
@@ -74,23 +103,14 @@
 
   <!-- Borang (hidden until password is correct) -->
   <form id="form" class="container m-4 pl-4" style="display:none;">
-    <!-- Bar carian di bahagian atas kanan -->
-    <div class="container search-container">
-      <div class="field has-addons is-pulled-right">
-        <div class="control has-icons-left">
-          <input class="input" type="text" id="item-search-input" placeholder="Cari Kod/Nama Item...">
-          <span class="icon is-small is-left">
-            <i class="fas fa-search"></i>
-          </span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Logout button -->
-    <div class="field is-grouped is-right">
-      <div class="control">
-        <button type="button" class="button is-success" id="logout-button">Log keluar</button>
+    <!-- Carian + Logout -->
+    <div class="container top-actions">
+      <div class="control has-icons-left search-box">
+        <input class="input" type="text" id="item-search-input" placeholder="Cari Kod/Nama Item...">
+        <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
       </div>
+      <button type="button" class="button is-success logout-btn" id="logout-button">Log keluar</button>
     </div>
 
     <div class="field">
@@ -198,7 +218,8 @@
       <label class="label">Setuju Terma</label>
       <div class="control">
         <label class="checkbox">
-          <input type="checkbox" name="Setuju_Terma" value="yes" required /> Saya bersetuju dengan terma dan syarat
+          <input type="checkbox" name="Setuju_Terma" value="yes" required />
+          Saya bersetuju dengan terma dan syarat
         </label>
       </div>
     </div>
@@ -213,10 +234,10 @@
     </div>
   </form>
 
-  <!-- Mesej status -->
+  <!-- Mesej status (notifikasi kecil) -->
   <div id="message" class="container" style="display:none;"></div>
 
-  <!-- Modal untuk memaparkan hasil carian -->
+  <!-- Modal carian -->
   <div class="modal" id="search-modal">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -224,16 +245,14 @@
         <p class="modal-card-title">Hasil Carian</p>
         <button class="delete" aria-label="close" id="close-modal-button"></button>
       </header>
-      <section class="modal-card-body" id="modal-content-body">
-        <!-- Hasil carian akan disuntik di sini -->
-      </section>
+      <section class="modal-card-body" id="modal-content-body"></section>
       <footer class="modal-card-foot is-justify-content-flex-end">
         <button class="button is-success" id="ok-modal-button">OK</button>
       </footer>
     </div>
   </div>
 
-  <!-- Modal pengesahan penghantaran -->
+  <!-- Modal pengesahan selepas hantar -->
   <div class="modal" id="confirm-modal">
     <div class="modal-background"></div>
     <div class="modal-card">
@@ -255,7 +274,7 @@
   </div>
 
   <script>
-    // Gerbang kata laluan
+    // ========= Login =========
     const loginBox = document.getElementById("login-box");
     const loginBtn = document.getElementById("login-button");
     const loginMsg = document.getElementById("login-msg");
@@ -263,213 +282,198 @@
     const CORRECT_PASSWORD = "Lab2025";
     const SESSION_KEY = "bpt_logged_in";
 
-    function showForm(){
-      loginBox.style.display = "none";
-      formBox.style.display = "block";
-    }
+    function showForm(){ loginBox.style.display="none"; formBox.style.display="block"; }
+    if(sessionStorage.getItem(SESSION_KEY) === "1") showForm();
 
-    if (sessionStorage.getItem(SESSION_KEY) === "1") {
-      showForm();
-    }
-
-    loginBtn.addEventListener("click", function(){
+    loginBtn.addEventListener("click", () => {
       const pw = document.getElementById("password-input").value;
-      if (pw === CORRECT_PASSWORD){
-        sessionStorage.setItem(SESSION_KEY, "1");
-        showForm();
-        loginMsg.textContent = "";
-        document.getElementById("password-input").value = "";
-      } else {
-        loginMsg.textContent = "Kata laluan salah!";
-      }
+      if(pw === CORRECT_PASSWORD){
+        sessionStorage.setItem(SESSION_KEY,"1");
+        showForm(); loginMsg.textContent=""; document.getElementById("password-input").value="";
+      } else { loginMsg.textContent="Kata laluan salah!"; }
     });
 
-    // Log keluar
+    // ========= Logout =========
     const logoutBtn = document.getElementById("logout-button");
     logoutBtn.addEventListener("click", () => {
       sessionStorage.removeItem(SESSION_KEY);
-      formBox.style.display = "none";
-      loginBox.style.display = "block";
+      formBox.style.display="none";
+      loginBox.style.display="block";
     });
 
-    // Data Item penuh
+    // ========= Data Item =========
     const allItems = [
-      { code: "ACID001", name: "NITRIC ACID 69% 2.5 LITER" },
-      { code: "ACID002", name: "NITRIC ACID 68% 2.5 LITER" },
-      { code: "ACID003", name: "NITRIC ACID 65% 2.5 LITER" },
-      { code: "ACID004", name: "NITRIC ACID 65% 1 LITER" },
-      { code: "ACID005", name: "HYDROCHLORIC ACID 37% 2.5LITER" },
-      { code: "ACID006", name: "HYDROCHLORIC ACID CARBOY 33% 25LITER" },
-      { code: "ACID007", name: "HYDROFLUORIC ACID 49% 2.5LITER" },
-      { code: "ACID008", name: "HYDROFLUORIC ACID 48% 2.5LITER" },
-      { code: "ACID009", name: "SULFURIC ACID 98% 2.5LITER" },
-      { code: "ACID010", name: "SULFURIC ACID 95-97% 2.5LITER" },
-      { code: "ACID011", name: "ORTHO PHOSPHORIC ACID 85% 2.5LITER" },
-      { code: "ACID012", name: "SULFUROUS ACID 5-6% 2.5LITER" },
-      { code: "ACID013", name: "PERCHLORIC ACID 70-72% 2.5LITER" },
-      { code: "ACID014", name: "PERCHLORIC ACID 70% 2.5LITER" },
-      { code: "ACID015", name: "HYDROBROMIC ACID 48-50%" },
-      { code: "ACID016", name: "ACETIC ACID GLACIAL 99.8% 2.5LITER" },
-      { code: "ACID017", name: "ACETIC ACID GLACIAL CARBOY 99.8% 25 LITER" },
-      { code: "ACID018", name: "THIOGLYCOLIC ACID 1KG" },
-      { code: "ACID019", name: "MERCAPTOACETIC ACID 98%" },
-      { code: "ACID020", name: "ACETIC ANHYDRIDE" },
-      { code: "ALC001", name: "ETHANOL 99.8% 2.5LITER" },
-      { code: "ALC002", name: "ETHANOL 70% 2.5LITER" },
-      { code: "ALC003", name: "ETHANOL ABSOLUTE 2.5L" },
-      { code: "ALC004", name: "ETHYL ALCOHOL 2.8 L" },
-      { code: "ALC005", name: "GLYCEROL 2.5 L" },
-      { code: "ALC006", name: "METHANOL 2.5L" },
-      { code: "ALC007", name: "METHYL ALCOHOL ANHYDROUS 4L" },
-      { code: "ALC008", name: "AMYL ALCOHOL" },
-      { code: "ALC009", name: "1-BUTANOL" },
-      { code: "ALC010", name: "2-METHYLBUTAN-2-O1" },
-      { code: "ALC011", name: "BENZENE" },
-      { code: "ALC012", name: "DIETHYLETHER 99%" },
-      { code: "KET001", name: "ACETONE 2.5 LITER" },
-      { code: "KET002", name: "ACETONE 25 LITER" },
-      { code: "KET003", name: "FORMALDEHYDE SOLUTION MIN 37% 2.5L" },
-      { code: "IND001", name: "4-AMINO-3-HYDROXYL-1-NAPTHALINSULFONIC ACID" },
-      { code: "IND002", name: "BARIUM DIPHENYLAMINE SULFONIC INDICATOR, 0.2%" },
-      { code: "IND003", name: "FERRIC INDICATOR SOLUTION" },
-      { code: "IND004", name: "BROMOCRESOL GREEN SOLN. 0.2G/100ML" },
-      { code: "IND005", name: "4% PHENOLPHTHALEIN 4G/100ML" },
-      { code: "OXI001", name: "HYDROGEN PEROXIDE 3%" },
-      { code: "OXI002", name: "HYDROGEN PEROXIDE 30% 1 LITER" },
-      { code: "OXI003", name: "HYDROGEN PEROXIDE 30%" },
-      { code: "OXI004", name: "POTASSIUM PERMANGANATE" },
-      { code: "OXI005", name: "SODIUM HYPOCHLORITE SOLUTION 15%" },
-      { code: "STD001", name: "LEAD STANDARD, 1000PPM" },
-      { code: "STD002", name: "TIN STANDARD, 1000PPM" },
-      { code: "STD003", name: "MANGANESE STANDARD, 1000PPM" },
-      { code: "STD004", name: "CALCIUM, 1000PPM" },
-      { code: "STD005", name: "CADMIUM, 1000PPM" },
-      { code: "STD006", name: "ALUMINIUM, 1000PPM" },
-      { code: "STD007", name: "MANGANESE, 1000PPM" },
-      { code: "STD008", name: "LEAD, 1000PPM" },
-      { code: "STD009", name: "CHROMIUM, 1000PPM" },
-      { code: "STD010", name: "MERKURI, 1000PPM" },
-      { code: "STD011", name: "ARSENIC, 1000PPM" },
-      { code: "STD012", name: "SILVER, 1000PPM" },
-      { code: "STD013", name: "IRON, 1000PPM" },
-      { code: "STD014", name: "TITANIUM, 1000PPM" },
-      { code: "STD015", name: "POTASSIUM, 1000PPM" },
-      { code: "STD016", name: "ZINC, 1000PPM" },
-      { code: "STD017", name: "SILICON, 1000PPM" },
-      { code: "STD018", name: "NICKEL, 1000PPM" },
-      { code: "STD019", name: "SODIUM, 1000PPM" },
-      { code: "STD020", name: "COPPER,1000PPM" },
-      { code: "STD021", name: "PHOSPOROUS, 1000PPM" },
-      { code: "STD022", name: "SELENIUM, 1000PPM" },
-      { code: "STD023", name: "TIN, 1000PPM" },
-      { code: "STD024", name: "ZIRCONIUM, 1000PPM" },
-      { code: "STD025", name: "MAGNESIUM, 1000PPM" },
-      { code: "STD026", name: "AU,AG,CU,ZN,NI,FE 100PPM" },
-      { code: "OTH001", name: "AMMONIA SOLUTION 25% 2.5LITER" },
-      { code: "OTH002", name: "POLYETHOXY CHAIN" },
-      { code: "OTH003", name: "PYRIDINE 2.5 LITER" },
-      { code: "OTH004", name: "PETROLEUM SPIRIT 40-60" },
-      { code: "OTH005", name: "n-HEXANE 2.5 L" },
-      { code: "OTH006", name: "DICHLOROMETHANE 2.5L" },
-      { code: "OTH007", name: "ETHYLENE GLYCOL 2.5 L" },
-      { code: "OTH008", name: "3,5,5-TRIMETHYL-1-HEXANOL TECHN 85%" },
-      { code: "CLN001", name: "Baldi" },
-      { code: "CLN002", name: "Bahan Pencuci (Jenis serbuk)" },
-      { code: "CLN003", name: "Bahan Pencuci (Cecair)" },
-      { code: "CLN004", name: "Pencuci tangan Dettol" },
-      { code: "CLN005", name: "Hand Sanitizer" },
-      { code: "CLN006", name: "Tuala Good Morning" },
-      { code: "CLN007", name: "Plastic sampah" },
-      { code: "CLN008", name: "Mop" },
-      { code: "PPE001", name: "Apron plastik" },
-      { code: "PPE002", name: "Sarung tangan getah kuning" },
-      { code: "PPE003", name: "Eye wash" },
-      { code: "BRU001", name: "Berus M.G Chemical" },
-      { code: "BRU002", name: "Copper wire brush (tembaga)" },
-      { code: "BRU003", name: "Brass wire brush" },
-      { code: "BRU004", name: "Justman brush" },
-      { code: "BRU005", name: "Berus Cat (Catherine Brush)" },
-      { code: "BRU006", name: "Horse hair Brush" },
-      { code: "LAB001", name: "Spatula lab" },
-      { code: "LAB002", name: "Spatula straight edged" },
-      { code: "LAB003", name: "Sample Boat" },
-      { code: "LAB004", name: "Bulat Clay" },
-      { code: "LAB005", name: "Fisher brand Beaker tongs safety" },
-      { code: "LAB006", name: "Bulb Pipette 30ml" },
-      { code: "STK001", name: "Stiker Putih Pendaftaran Sampel MBA" },
-      { code: "STK002", name: "Stiker Riben" },
-      { code: "STK003", name: "Stiker Bulat" },
-      { code: "OTH009", name: "Mini Drawer" },
-      { code: "OTH010", name: "Tayar Troli" },
-      { code: "OTH011", name: "Pemetik api" },
-      { code: "OTH012", name: "Eubiq plug Extention" },
-      { code: "OTH013", name: "Molykote" },
-      { code: "OTH014", name: "Container" },
-      { code: "OTH015", name: "Pembalut Plastik" },
-      { code: "PLS001", name: "Plastik (Tanpa Zip) 14 x 20" },
-      { code: "PLS002", name: "Plastik (Tanpa Zip) 3 x 5" },
-      { code: "PLS003", name: "Plastik (Tanpa Zip) 12 x 18" },
-      { code: "PLS004", name: "Plastik (Tanpa Zip) 9 x 14" },
-      { code: "PLS005", name: "Plastik Roll 12 x 18" },
-      { code: "FIL001", name: "Filter paper" },
-      { code: "EQ009", name: "DispensetteS MBA" },
-      { code: "EQ010", name: "Aksesori mikromeister" },
-      { code: "EQ011", name: "Petri Dish" },
-      { code: "GLS001", name: "Watch Glass" },
-      { code: "BEK001", name: "Beaker plastic 100ml" },
-      { code: "BEK002", name: "Beaker 100 ml" },
-      { code: "BEK003", name: "Beaker kaca 600ml" },
-      { code: "BEK004", name: "Beaker kaca 150 ml" },
-      { code: "BEK005", name: "Beaker kaca 800 ml" },
-      { code: "BEK006", name: "Narrow Neck 500ml" },
-      { code: "BEK007", name: "Beaker conical 250ml" },
-      { code: "BEK008", name: "Beaker Narrow 600ml" },
-      { code: "BEK009", name: "Pyrex beaker 1000A-150 griffin low form" },
-      { code: "EQ012", name: "Mikromeister" },
-      { code: "EQ013", name: "Jar Vacuum Pump" },
-      { code: "FLK001", name: "Kelalang Dasar Bulat 1L" },
-      { code: "BEK010", name: "Schott Duran beaker 500ml" },
-      { code: "BOT001", name: "Wash Bottle 250ml" },
-      { code: "BOT002", name: "Bottle Lutsinar (En. Bala)" },
-      { code: "BOT003", name: "Bottle" },
-      { code: "BOT004", name: "Bottle Putih" },
-      { code: "TUB001", name: "Centrifuge tube 50ml orange cap" },
-      { code: "CLN009", name: "Multi surface sanitizer disinfectant (Magic 10)" },
-      { code: "CLN010", name: "Decon 90" },
-      { code: "TIP001", name: "Pipet Tip 5 ml" },
-      { code: "TUB002", name: "Sample Tube ICPMS 15ml" },
-      { code: "TUB003", name: "Sample Tube ICPMS 50 ml" },
-      { code: "EQ014", name: "Troli" },
-      { code: "PPE009", name: "Glove" },
-      { code: "PPE010", name: "Face Mask 8210" },
-      { code: "PPE011", name: "Face Mask 8511" },
-      { code: "PPE012", name: "Glove hitam panjang" },
-      { code: "PPE013", name: "Glove getah hijau" },
-      { code: "PPE014", name: "Fire Blanket" },
-      { code: "PPE015", name: "Apron single" },
-      { code: "PPE016", name: "Hazard mask" },
-      { code: "PPE017", name: "Safety Goggles" },
-      { code: "PPE018", name: "Emergency stretcher" },
-      { code: "EQ015", name: "Iron Steam" }
+      { code:"ACID001", name:"NITRIC ACID 69% 2.5 LITER" },
+      { code:"ACID002", name:"NITRIC ACID 68% 2.5 LITER" },
+      { code:"ACID003", name:"NITRIC ACID 65% 2.5 LITER" },
+      { code:"ACID004", name:"NITRIC ACID 65% 1 LITER" },
+      { code:"ACID005", name:"HYDROCHLORIC ACID 37% 2.5LITER" },
+      { code:"ACID006", name:"HYDROCHLORIC ACID CARBOY 33% 25LITER" },
+      { code:"ACID007", name:"HYDROFLUORIC ACID 49% 2.5LITER" },
+      { code:"ACID008", name:"HYDROFLUORIC ACID 48% 2.5LITER" },
+      { code:"ACID009", name:"SULFURIC ACID 98% 2.5LITER" },
+      { code:"ACID010", name:"SULFURIC ACID 95-97% 2.5LITER" },
+      { code:"ACID011", name:"ORTHO PHOSPHORIC ACID 85% 2.5LITER" },
+      { code:"ACID012", name:"SULFUROUS ACID 5-6% 2.5LITER" },
+      { code:"ACID013", name:"PERCHLORIC ACID 70-72% 2.5LITER" },
+      { code:"ACID014", name:"PERCHLORIC ACID 70% 2.5LITER" },
+      { code:"ACID015", name:"HYDROBROMIC ACID 48-50%" },
+      { code:"ACID016", name:"ACETIC ACID GLACIAL 99.8% 2.5LITER" },
+      { code:"ACID017", name:"ACETIC ACID GLACIAL CARBOY 99.8% 25 LITER" },
+      { code:"ACID018", name:"THIOGLYCOLIC ACID 1KG" },
+      { code:"ACID019", name:"MERCAPTOACETIC ACID 98%" },
+      { code:"ACID020", name:"ACETIC ANHYDRIDE" },
+      { code:"ALC001", name:"ETHANOL 99.8% 2.5LITER" },
+      { code:"ALC002", name:"ETHANOL 70% 2.5LITER" },
+      { code:"ALC003", name:"ETHANOL ABSOLUTE 2.5L" },
+      { code:"ALC004", name:"ETHYL ALCOHOL 2.8 L" },
+      { code:"ALC005", name:"GLYCEROL 2.5 L" },
+      { code:"ALC006", name:"METHANOL 2.5L" },
+      { code:"ALC007", name:"METHYL ALCOHOL ANHYDROUS 4L" },
+      { code:"ALC008", name:"AMYL ALCOHOL" },
+      { code:"ALC009", name:"1-BUTANOL" },
+      { code:"ALC010", name:"2-METHYLBUTAN-2-O1" },
+      { code:"ALC011", name:"BENZENE" },
+      { code:"ALC012", name:"DIETHYLETHER 99%" },
+      { code:"KET001", name:"ACETONE 2.5 LITER" },
+      { code:"KET002", name:"ACETONE 25 LITER" },
+      { code:"KET003", name:"FORMALDEHYDE SOLUTION MIN 37% 2.5L" },
+      { code:"IND001", name:"4-AMINO-3-HYDROXYL-1-NAPTHALINSULFONIC ACID" },
+      { code:"IND002", name:"BARIUM DIPHENYLAMINE SULFONIC INDICATOR, 0.2%" },
+      { code:"IND003", name:"FERRIC INDICATOR SOLUTION" },
+      { code:"IND004", name:"BROMOCRESOL GREEN SOLN. 0.2G/100ML" },
+      { code:"IND005", name:"4% PHENOLPHTHALEIN 4G/100ML" },
+      { code:"OXI001", name:"HYDROGEN PEROXIDE 3%" },
+      { code:"OXI002", name:"HYDROGEN PEROXIDE 30% 1 LITER" },
+      { code:"OXI003", name:"HYDROGEN PEROXIDE 30%" },
+      { code:"OXI004", name:"POTASSIUM PERMANGANATE" },
+      { code:"OXI005", name:"SODIUM HYPOCHLORITE SOLUTION 15%" },
+      { code:"STD001", name:"LEAD STANDARD, 1000PPM" },
+      { code:"STD002", name:"TIN STANDARD, 1000PPM" },
+      { code:"STD003", name:"MANGANESE STANDARD, 1000PPM" },
+      { code:"STD004", name:"CALCIUM, 1000PPM" },
+      { code:"STD005", name:"CADMIUM, 1000PPM" },
+      { code:"STD006", name:"ALUMINIUM, 1000PPM" },
+      { code:"STD007", name:"MANGANESE, 1000PPM" },
+      { code:"STD008", name:"LEAD, 1000PPM" },
+      { code:"STD009", name:"CHROMIUM, 1000PPM" },
+      { code:"STD010", name:"MERKURI, 1000PPM" },
+      { code:"STD011", name:"ARSENIC, 1000PPM" },
+      { code:"STD012", name:"SILVER, 1000PPM" },
+      { code:"STD013", name:"IRON, 1000PPM" },
+      { code:"STD014", name:"TITANIUM, 1000PPM" },
+      { code:"STD015", name:"POTASSIUM, 1000PPM" },
+      { code:"STD016", name:"ZINC, 1000PPM" },
+      { code:"STD017", name:"SILICON, 1000PPM" },
+      { code:"STD018", name:"NICKEL, 1000PPM" },
+      { code:"STD019", name:"SODIUM, 1000PPM" },
+      { code:"STD020", name:"COPPER,1000PPM" },
+      { code:"STD021", name:"PHOSPOROUS, 1000PPM" },
+      { code:"STD022", name:"SELENIUM, 1000PPM" },
+      { code:"STD023", name:"TIN, 1000PPM" },
+      { code:"STD024", name:"ZIRCONIUM, 1000PPM" },
+      { code:"STD025", name:"MAGNESIUM, 1000PPM" },
+      { code:"STD026", name:"AU,AG,CU,ZN,NI,FE 100PPM" },
+      { code:"OTH001", name:"AMMONIA SOLUTION 25% 2.5LITER" },
+      { code:"OTH002", name:"POLYETHOXY CHAIN" },
+      { code:"OTH003", name:"PYRIDINE 2.5 LITER" },
+      { code:"OTH004", name:"PETROLEUM SPIRIT 40-60" },
+      { code:"OTH005", name:"n-HEXANE 2.5 L" },
+      { code:"OTH006", name:"DICHLOROMETHANE 2.5L" },
+      { code:"OTH007", name:"ETHYLENE GLYCOL 2.5 L" },
+      { code:"OTH008", name:"3,5,5-TRIMETHYL-1-HEXANOL TECHN 85%" },
+      { code:"CLN001", name:"Baldi" },
+      { code:"CLN002", name:"Bahan Pencuci (Jenis serbuk)" },
+      { code:"CLN003", name:"Bahan Pencuci (Cecair)" },
+      { code:"CLN004", name:"Pencuci tangan Dettol" },
+      { code:"CLN005", name:"Hand Sanitizer" },
+      { code:"CLN006", name:"Tuala Good Morning" },
+      { code:"CLN007", name:"Plastic sampah" },
+      { code:"CLN008", name:"Mop" },
+      { code:"PPE001", name:"Apron plastik" },
+      { code:"PPE002", name:"Sarung tangan getah kuning" },
+      { code:"PPE003", name:"Eye wash" },
+      { code:"BRU001", name:"Berus M.G Chemical" },
+      { code:"BRU002", name:"Copper wire brush (tembaga)" },
+      { code:"BRU003", name:"Brass wire brush" },
+      { code:"BRU004", name:"Justman brush" },
+      { code:"BRU005", name:"Berus Cat (Catherine Brush)" },
+      { code:"BRU006", name:"Horse hair Brush" },
+      { code:"LAB001", name:"Spatula lab" },
+      { code:"LAB002", name:"Spatula straight edged" },
+      { code:"LAB003", name:"Sample Boat" },
+      { code:"LAB004", name:"Bulat Clay" },
+      { code:"LAB005", name:"Fisher brand Beaker tongs safety" },
+      { code:"LAB006", name:"Bulb Pipette 30ml" },
+      { code:"STK001", name:"Stiker Putih Pendaftaran Sampel MBA" },
+      { code:"STK002", name:"Stiker Riben" },
+      { code:"STK003", name:"Stiker Bulat" },
+      { code:"OTH009", name:"Mini Drawer" },
+      { code:"OTH010", name:"Tayar Troli" },
+      { code:"OTH011", name:"Pemetik api" },
+      { code:"OTH012", name:"Eubiq plug Extention" },
+      { code:"OTH013", name:"Molykote" },
+      { code:"OTH014", name:"Container" },
+      { code:"OTH015", name:"Pembalut Plastik" },
+      { code:"PLS001", name:"Plastik (Tanpa Zip) 14 x 20" },
+      { code:"PLS002", name:"Plastik (Tanpa Zip) 3 x 5" },
+      { code:"PLS003", name:"Plastik (Tanpa Zip) 12 x 18" },
+      { code:"PLS004", name:"Plastik (Tanpa Zip) 9 x 14" },
+      { code:"PLS005", name:"Plastik Roll 12 x 18" },
+      { code:"FIL001", name:"Filter paper" },
+      { code:"EQ009", name:"DispensetteS MBA" },
+      { code:"EQ010", name:"Aksesori mikromeister" },
+      { code:"EQ011", name:"Petri Dish" },
+      { code:"GLS001", name:"Watch Glass" },
+      { code:"BEK001", name:"Beaker plastic 100ml" },
+      { code:"BEK002", name:"Beaker 100 ml" },
+      { code:"BEK003", name:"Beaker kaca 600ml" },
+      { code:"BEK004", name:"Beaker kaca 150 ml" },
+      { code:"BEK005", name:"Beaker kaca 800 ml" },
+      { code:"BEK006", name:"Narrow Neck 500ml" },
+      { code:"BEK007", name:"Beaker conical 250ml" },
+      { code:"BEK008", name:"Beaker Narrow 600ml" },
+      { code:"BEK009", name:"Pyrex beaker 1000A-150 griffin low form" },
+      { code:"EQ012", name:"Mikromeister" },
+      { code:"EQ013", name:"Jar Vacuum Pump" },
+      { code:"FLK001", name:"Kelalang Dasar Bulat 1L" },
+      { code:"BEK010", name:"Schott Duran beaker 500ml" },
+      { code:"BOT001", name:"Wash Bottle 250ml" },
+      { code:"BOT002", name:"Bottle Lutsinar (En. Bala)" },
+      { code:"BOT003", name:"Bottle" },
+      { code:"BOT004", name:"Bottle Putih" },
+      { code:"TUB001", name:"Centrifuge tube 50ml orange cap" },
+      { code:"CLN009", name:"Multi surface sanitizer disinfectant (Magic 10)" },
+      { code:"CLN010", name:"Decon 90" },
+      { code:"TIP001", name:"Pipet Tip 5 ml" },
+      { code:"TUB002", name:"Sample Tube ICPMS 15ml" },
+      { code:"TUB003", name:"Sample Tube ICPMS 50 ml" },
+      { code:"EQ014", name:"Troli" },
+      { code:"PPE009", name:"Glove" },
+      { code:"PPE010", name:"Face Mask 8210" },
+      { code:"PPE011", name:"Face Mask 8511" },
+      { code:"PPE012", name:"Glove hitam panjang" },
+      { code:"PPE013", name:"Glove getah hijau" },
+      { code:"PPE014", name:"Fire Blanket" },
+      { code:"PPE015", name:"Apron single" },
+      { code:"PPE016", name:"Hazard mask" },
+      { code:"PPE017", name:"Safety Goggles" },
+      { code:"PPE018", name:"Emergency stretcher" },
+      { code:"EQ015", name:"Iron Steam" }
     ];
 
-    // Hubungan antara dropdown dan carian
+    // ========= Elemen =========
     const codeSelect = document.getElementById('kod-item-select');
     const nameSelect = document.getElementById('nama-item-select');
     const searchInput = document.getElementById('item-search-input');
 
-    // Rujukan borang & butang
     const form = document.getElementById("form");
     const submitButton = document.getElementById("submit-button");
     const cancelButton = document.getElementById("cancel-button");
     const messageDiv = document.getElementById("message");
 
-    // Rujukan modal carian
     const searchModal = document.getElementById('search-modal');
     const modalContent = document.getElementById('modal-content-body');
-    const closeModalBtn = document.getElementById('close-modal-button');
-    const okModalBtn = document.getElementById('ok-modal-button');
-    const modalBackground = document.querySelector('.modal-background');
 
     // ===== Modal Pengesahan =====
     const confirmModal  = document.getElementById('confirm-modal');
@@ -477,154 +481,130 @@
     const confirmQtyEl  = document.getElementById('confirm-qty');
     const confirmOkBtn  = document.getElementById('confirm-ok');
     const confirmCloseX = document.getElementById('confirm-close-x');
-    const confirmBg     = confirmModal.querySelector('.modal-background');
-
     function openConfirmModal(itemText, qtyText){
       confirmItemEl.textContent = itemText || '-';
       confirmQtyEl.textContent  = qtyText  || '-';
       confirmModal.classList.add('is-active');
     }
-    function closeConfirmModal(){
-      confirmModal.classList.remove('is-active');
-    }
+    function closeConfirmModal(){ confirmModal.classList.remove('is-active'); }
     confirmOkBtn.addEventListener('click', closeConfirmModal);
     confirmCloseX.addEventListener('click', closeConfirmModal);
-    confirmBg.addEventListener('click', closeConfirmModal);
+    confirmModal.querySelector('.modal-background').addEventListener('click', closeConfirmModal);
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbyAtEO6DNB0y_1a2TOrvyA2YwDMGOtZ7C9rtwjliXre44tiT3S71RBZBrBtlYnwGcddVg/exec";
 
-    // Isi pilihan dropdown
-    function populateSelects(items) {
+    // ========= Isi dropdown =========
+    function populateSelects(items){
       codeSelect.innerHTML = '<option value="">-- Sila Pilih Kod Item --</option>';
       nameSelect.innerHTML = '<option value="">-- Nama Item --</option>';
-
-      items.forEach(item => {
-        const codeOption = document.createElement('option');
-        codeOption.value = item.code;
-        codeOption.textContent = item.code;
-        codeSelect.appendChild(codeOption);
-
-        const nameOption = document.createElement('option');
-        nameOption.value = item.name;
-        nameOption.textContent = item.name;
-        nameSelect.appendChild(nameOption);
+      items.forEach(item=>{
+        const o1=document.createElement('option');
+        o1.value=item.code; o1.textContent=item.code; codeSelect.appendChild(o1);
+        const o2=document.createElement('option');
+        o2.value=item.name; o2.textContent=item.name; nameSelect.appendChild(o2);
       });
     }
     populateSelects(allItems);
 
-    // Pilih item dari modal
-    function selectItem(code, name) {
-      codeSelect.value = code;
-      nameSelect.value = name;
+    // ========= Carian (kod sahaja) =========
+    function selectItem(code,name){
+      codeSelect.value=code;
+      nameSelect.value=name;
       searchModal.classList.remove('is-active');
     }
-    window.selectItem = selectItem; // boleh dipanggil dari onclick hasil carian
+    window.selectItem = selectItem;
 
-    // Papar hasil carian dalam modal
-    function showSearchResults(results) {
-      if (results.length === 0) {
-        modalContent.innerHTML = '<p class="has-text-centered">Tiada hasil carian ditemui.</p>';
-      } else {
-        let htmlContent = '';
-        results.forEach(item => {
-          htmlContent += `
+    function showSearchResults(results){
+      if(results.length===0){
+        modalContent.innerHTML='<p class="has-text-centered">Tiada hasil carian ditemui.</p>';
+      }else{
+        let html='';
+        results.forEach(item=>{
+          html += `
             <div class="search-result-item" onclick="selectItem('${item.code}', '${item.name.replace(/'/g, "\\'")}')">
               <p>${item.name}</p>
               <span>Kod: ${item.code}</span>
-            </div>
-          `;
+            </div>`;
         });
-        modalContent.innerHTML = htmlContent;
+        modalContent.innerHTML=html;
       }
       searchModal.classList.add('is-active');
     }
 
-    // Carian (kini kod sahaja)
-    searchInput.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase();
-      if (searchTerm.length > 0) {
-        const filteredItems = allItems.filter(item =>
-          item.code.toLowerCase().includes(searchTerm)
-        );
-        showSearchResults(filteredItems);
-      } else {
+    searchInput.addEventListener('input', e=>{
+      const term = e.target.value.toLowerCase();
+      if(term.length>0){
+        const filtered = allItems.filter(i => i.code.toLowerCase().includes(term));
+        showSearchResults(filtered);
+      }else{
         searchModal.classList.remove('is-active');
       }
     });
 
     // Pautan kod <-> nama
-    codeSelect.addEventListener('change', () => {
-      const selectedItem = allItems.find(item => item.code === codeSelect.value);
-      nameSelect.value = selectedItem ? selectedItem.name : "";
+    codeSelect.addEventListener('change', ()=>{
+      const it = allItems.find(i=>i.code===codeSelect.value);
+      nameSelect.value = it ? it.name : "";
     });
-    nameSelect.addEventListener('change', () => {
-      const selectedItem = allItems.find(item => item.name === nameSelect.value);
-      codeSelect.value = selectedItem ? selectedItem.code : "";
+    nameSelect.addEventListener('change', ()=>{
+      const it = allItems.find(i=>i.name===nameSelect.value);
+      codeSelect.value = it ? it.code : "";
     });
 
-    // Mesej status
-    function setMessage(type, text){
+    // ========= Notifikasi kecil =========
+    function setMessage(type,text){
       messageDiv.innerHTML = '<div class="notification is-'+type+'">'+text+'</div>';
       messageDiv.style.display = "block";
     }
 
-    // Hantar borang
-    form.addEventListener("submit", async function (e) {
+    // ========= Hantar borang =========
+    form.addEventListener("submit", async (e)=>{
       e.preventDefault();
-      if (sessionStorage.getItem(SESSION_KEY) !== "1") {
-        setMessage("danger", "Sila log masuk dahulu.");
-        return;
+      if(sessionStorage.getItem(SESSION_KEY)!=="1"){
+        setMessage("danger","Sila log masuk dahulu."); return;
       }
-      setMessage("info", "Sedang menghantar...");
-      submitButton.disabled = true;
-      submitButton.classList.add("is-loading");
+      setMessage("info","Sedang menghantar...");
+      submitButton.disabled=true; submitButton.classList.add("is-loading");
 
-      try {
-        const formData = new FormData(form);
-        const formDataObj = {};
-        for (let [key, value] of formData.entries()) formDataObj[key] = value;
+      try{
+        const fd = new FormData(form);
+        const obj={}; for(const [k,v] of fd.entries()) obj[k]=v;
 
-        const item = formDataObj["Nama_Item"];
-        const qty  = formDataObj["Kuantiti"];
+        const item = obj["Nama_Item"];
+        const qty  = obj["Kuantiti"];
 
-        const response = await fetch(scriptURL, {
-          method: "POST",
-          body: JSON.stringify(formDataObj),
-          headers: { "Content-Type": "text/plain;charset=utf-8" }
+        const res = await fetch(scriptURL,{
+          method:"POST",
+          body: JSON.stringify(obj),
+          headers:{ "Content-Type":"text/plain;charset=utf-8" }
         });
+        const data = await res.json();
 
-        const data = await response.json();
-
-        if (data.status === "success") {
+        if(data.status==="success"){
           setMessage("success", `Permintaan berjaya! Item: ${item}, Kuantiti: ${qty}`);
-
-          // Tunjuk modal pengesahan Bulma
           openConfirmModal(item, qty);
-
           form.reset();
-        } else {
+        }else{
           throw new Error(data.message || "Gagal dihantar");
         }
-      } catch (error) {
-        setMessage("danger", "Ralat: " + error.message);
-      } finally {
-        submitButton.disabled = false;
-        submitButton.classList.remove("is-loading");
-        setTimeout(() => { messageDiv.style.display = "none"; }, 4000);
+      }catch(err){
+        setMessage("danger","Ralat: " + err.message);
+      }finally{
+        submitButton.disabled=false; submitButton.classList.remove("is-loading");
+        setTimeout(()=>{ messageDiv.style.display="none"; }, 4000);
       }
     });
 
     // Batal
-    cancelButton.addEventListener("click", function () {
-      form.reset();
-      messageDiv.style.display = "none";
+    document.getElementById("cancel-button").addEventListener("click", ()=>{
+      form.reset(); messageDiv.style.display="none";
     });
 
     // Tutup modal carian
-    const closeModals = () => { searchModal.classList.remove('is-active'); };
-    document.getElementById('close-modal-button').addEventListener('click', closeModals);
-    document.getElementById('ok-modal-button').addEventListener('click', closeModals);
-    document.querySelector('#search-modal .modal-background').addEventListener('click', closeModals);
+    const closeSearch = ()=> searchModal.classList.remove('is-active');
+    document.getElementById('close-modal-button').addEventListener('click', closeSearch);
+    document.getElementById('ok-modal-button').addEventListener('click', closeSearch);
+    document.querySelector('#search-modal .modal-background').addEventListener('click', closeSearch);
   </script>
 </body>
 </html>
