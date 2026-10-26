@@ -1,124 +1,189 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BILIK PENYIMPANAN BARANG MAKMAL</title>
-
-  <!-- Bulma CSS Framework -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"/>
-
-  <!-- Font Awesome untuk ikon carian -->
-  <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-
-  <!-- Google Font: Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-
-  <style>
-    /* Opsyen A: Gradient + gambar bg untuk header hero */
-    .hero.is-primary{
-      background-image:
-        linear-gradient(135deg, rgba(22,160,133,.85), rgba(26,188,156,.85)),
-        url('./bg.jpg'); /* ubah laluan jika perlu */
-      background-position:center;
-      background-size:cover;
-      background-repeat:no-repeat;
-    }
-
-    /* Tajuk */
-    h1.title{
-      font-family:'Poppins',sans-serif;
-      font-size:2.2rem;
-      font-weight:600;
-      color:#fff;
-      text-shadow:1px 2px 4px rgba(0,0,0,.25);
-    }
-
-    /* Susun atur: carian + logout */
-    .top-actions{
-      display:flex;
-      align-items:center;
-      gap:.75rem;
-      margin-top:1rem;
-      margin-right:1rem;
-    }
-
-    /* === Pelaras lebar kotak carian === */
-    .top-actions .search-box{
-      flex:0 0 40%;   /* ambil 40% ruang di desktop */
-      max-width:40%;
-    }
-    .top-actions .search-box .input{ width:100%; } /* pastikan input penuh dalam box */
-    .top-actions .logout-btn{ white-space:nowrap; }
-
-    /* Mobile: tindan menegak & search penuh 100% */
-    @media (max-width:768px){
-      .top-actions{
-        flex-direction:column;
-        align-items:stretch;
-        margin-right:0;
-      }
-      .top-actions .search-box{
-        flex:1 1 auto;
-        max-width:100%;
-        width:100%;
-      }
-      .top-actions .logout-btn{ width:100%; }
-    }
-
-    /* Item keputusan carian dalam modal */
-    .search-result-item{
-      padding:.5rem .75rem;
-      border-bottom:1px solid #dbdbdb;
-      cursor:pointer;
-      transition:background-color .2s;
-    }
-    .search-result-item:hover{background:#f5f5f5}
-    .search-result-item:last-child{border-bottom:none}
-    .search-result-item p{font-weight:bold}
-    .search-result-item span{font-style:italic;color:#7a7a7a}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<meta name="theme-color" content="#0B5563"/>
+<title>Bilik Penyimpanan Barang Makmal - JMG BPT</title>
+<link rel="icon" href="./logo-jmg.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block" rel="stylesheet"/>
+<script>
+  // Tema: ikut pilihan terakhir, atau tetapan peranti
+  (function(){
+    let t = null;
+    try { t = localStorage.getItem("bpt_theme"); } catch(e) {}
+    if(!t) t = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.classList.add(t);
+  })();
+</script>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+  const c = v => "rgb(var(--" + v + ") / <alpha-value>)";
+  if(window.tailwind) tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+      colors: {
+        "surface": c("surface"),
+        "surface-container-lowest": c("sc-lowest"),
+        "surface-container-low": c("sc-low"),
+        "surface-container": c("sc"),
+        "surface-container-high": c("sc-high"),
+        "surface-container-highest": c("sc-highest"),
+        "on-surface": c("on-surface"),
+        "on-surface-variant": c("on-surface-variant"),
+        "outline": c("outline"),
+        "outline-variant": c("outline-variant"),
+        "primary": c("primary"),
+        "on-primary": c("on-primary"),
+        "primary-hover": c("primary-hover"),
+        "secondary": c("secondary"),
+        "secondary-container": c("secondary-container"),
+        "on-secondary-container": c("on-secondary-container"),
+        "warn": c("warn"),
+        "warn-container": c("warn-container"),
+        "on-warn-container": c("on-warn-container"),
+        "error": c("error"),
+        "error-container": c("error-container"),
+        "on-error-container": c("on-error-container")
+      },
+      fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] }
+    } }
+  };
+</script>
+<style>
+  :root{
+    --surface:245 247 250; --sc-lowest:255 255 255; --sc-low:237 244 255; --sc:227 239 255;
+    --sc-high:219 234 251; --sc-highest:213 228 246;
+    --on-surface:15 29 41; --on-surface-variant:64 72 75; --outline:112 120 123; --outline-variant:191 200 203;
+    --primary:11 85 99; --on-primary:255 255 255; --primary-hover:8 66 77;
+    --secondary:0 107 88; --secondary-container:207 245 234; --on-secondary-container:0 81 66;
+    --warn:179 95 6; --warn-container:255 220 196; --on-warn-container:111 56 0;
+    --error:179 38 30; --error-container:255 218 214; --on-error-container:147 0 10;
+  }
+  html.dark{
+    --surface:10 18 23; --sc-lowest:17 30 37; --sc-low:20 37 48; --sc:24 43 55;
+    --sc-high:28 50 61; --sc-highest:34 59 71;
+    --on-surface:227 238 245; --on-surface-variant:182 196 204; --outline:138 152 159; --outline-variant:58 78 88;
+    --primary:95 179 198; --on-primary:0 43 51; --primary-hover:130 200 215;
+    --secondary:79 209 176; --secondary-container:0 81 63; --on-secondary-container:207 252 239;
+    --warn:255 183 128; --warn-container:90 46 0; --on-warn-container:255 220 196;
+    --error:255 180 171; --error-container:147 0 10; --on-error-container:255 218 214;
+  }
+  html,body{background:rgb(var(--surface)); color:rgb(var(--on-surface));}
+  body{font-family:"Inter",system-ui,sans-serif; -webkit-tap-highlight-color:transparent;}
+  .material-symbols-outlined{font-variation-settings:"FILL" 0,"wght" 400,"GRAD" 0,"opsz" 24; line-height:1;}
+  .icon-fill{font-variation-settings:"FILL" 1,"wght" 500,"GRAD" 0,"opsz" 24;}
+  .tabular{font-variant-numeric:tabular-nums;}
+  .pb-safe{padding-bottom:max(env(safe-area-inset-bottom,0px),12px);}
+  input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+  input[type=number]{-moz-appearance:textfield;}
+  select{background-image:none;}
+  .sheet-enter{animation:sheetUp .22s ease-out;}
+  @keyframes sheetUp{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+  .pop{animation:pop .2s ease-out;}
+  @keyframes pop{from{transform:scale(.96);opacity:0}to{transform:none;opacity:1}}
+</style>
 </head>
 
-<body class="theme-forest">
-  <section class="hero is-primary is-bold">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <h1 class="title">BILIK PENYIMPANAN BARANG MAKMAL</h1>
-      </div>
-    </div>
-  </section>
+<body class="min-h-screen">
 
-  <!-- Login -->
-  <div id="login-box" class="container m-4 pl-4">
-    <div class="field">
-      <label class="label">Kata Laluan</label>
-      <div class="control">
-        <input class="input" style="width:250px" type="password" id="password-input" placeholder="Masukkan kata laluan">
-      </div>
+<!-- ================= SKRIN 1: LOG MASUK ================= -->
+<section id="login-screen" class="relative min-h-screen flex flex-col items-center px-4 py-6 overflow-hidden">
+  <svg class="absolute inset-0 w-full h-full text-outline-variant opacity-40 pointer-events-none" viewBox="0 0 400 800" preserveAspectRatio="none" fill="none" aria-hidden="true">
+    <path d="M-50 120C80 90 220 160 450 110V220C280 260 120 180 -50 240Z" fill="currentColor" fill-opacity=".18"/>
+    <path d="M-50 280C140 230 260 320 450 270V410C310 440 160 370 -50 420Z" fill="currentColor" fill-opacity=".12"/>
+    <path d="M-50 540C110 500 240 600 450 530V680C290 710 130 640 -50 690Z" fill="currentColor" fill-opacity=".15"/>
+    <path d="M310 370L326 408C329 414 325 422 318 422H292C285 422 281 414 284 408L300 370V362H310V370Z" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M80 620L102 595L124 612L116 642L90 640Z" stroke="currentColor" stroke-width="1.5"/>
+  </svg>
+
+  <div class="relative w-full max-w-sm flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2 bg-surface-container-high/80 backdrop-blur px-3 py-1.5 rounded-full">
+      <span class="relative flex h-2 w-2"><span class="animate-ping absolute h-full w-full rounded-full bg-secondary opacity-75"></span><span class="relative h-2 w-2 rounded-full bg-secondary"></span></span>
+      <span class="text-[11px] font-semibold tracking-wider uppercase text-on-surface-variant">Stor Makmal BPT</span>
     </div>
-    <button class="button is-primary" id="login-button">Masuk</button>
-    <p id="login-msg" class="has-text-danger mt-2"></p>
+    <button type="button" class="theme-toggle h-10 px-3 rounded-full bg-surface-container-lowest flex items-center gap-1.5 shadow-sm active:scale-95 transition" aria-label="Tukar tema paparan">
+      <span class="material-symbols-outlined text-[18px] text-primary theme-icon">dark_mode</span>
+      <span class="text-[12px] font-medium text-on-surface-variant theme-text">Gelap</span>
+    </button>
   </div>
 
-  <!-- Borang (hidden until password is correct) -->
-  <form id="form" class="container m-4 pl-4" style="display:none;">
-
-    <!-- Carian + Logout -->
-    <div class="container top-actions">
-      <div class="control has-icons-left search-box">
-        <input class="input" type="text" id="item-search-input" placeholder="Cari Kod/Nama Item...">
-        <span class="icon is-small is-left"><i class="fas fa-search"></i></span>
+  <div class="relative w-full max-w-sm bg-surface-container-lowest rounded-2xl shadow-md p-6 pop">
+    <div class="flex flex-col items-center text-center">
+      <div class="w-20 h-20 rounded-2xl bg-surface-container-low flex items-center justify-center mb-4 shadow-sm">
+        <img src="./logo-jmg.png" alt="Logo JMG" class="w-16 h-16 object-contain"/>
       </div>
-      <button type="button" class="button is-success logout-btn" id="logout-button">Log keluar</button>
+      <h1 class="text-[18px] leading-6 font-semibold text-primary">Bilik Penyimpanan Barang Makmal</h1>
+      <p class="text-[13px] text-on-surface-variant font-medium mt-1 mb-6">Makmal BPT JMG Ipoh</p>
     </div>
 
-    <div class="field">
-      <label class="label">Nama Pengguna</label>
-      <div class="control">
-        <div class="select is-fullwidth">
-          <select name="Nama_Pengguna" required>
-            <option value="">-- Sila Pilih Nama Pengguna --</option>
+    <form id="login-box" class="flex flex-col" novalidate>
+      <label for="password-input" class="text-[14px] font-semibold mb-1.5">Kata Laluan</label>
+      <div class="relative flex items-center">
+        <span class="material-symbols-outlined absolute left-3.5 text-[20px] text-outline pointer-events-none">lock</span>
+        <input id="password-input" type="password" autocomplete="current-password" placeholder="Masukkan kata laluan"
+          class="w-full h-12 pl-11 pr-12 rounded-xl bg-surface-container-low text-on-surface placeholder:text-outline text-base focus:outline-none focus:ring-2 focus:ring-primary/30 transition"/>
+        <button type="button" id="toggle-visibility" class="absolute right-1 w-11 h-11 flex items-center justify-center text-outline hover:text-on-surface rounded-lg" aria-label="Tunjuk atau sembunyi kata laluan">
+          <span class="material-symbols-outlined text-[22px]" id="visibility-icon">visibility_off</span>
+        </button>
+      </div>
+      <button id="login-button" type="submit" class="mt-5 w-full min-h-[48px] rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-semibold flex items-center justify-center gap-2 shadow-sm active:scale-[.99] transition disabled:opacity-80">
+        <span>Masuk</span>
+        <svg id="login-spinner" class="animate-spin h-4 w-4 hidden" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.37 0 0 5.37 0 12h4z"/></svg>
+      </button>
+      <div id="login-msg" class="hidden mt-3 text-[13px] font-medium text-error bg-error-container/40 rounded-lg py-2 px-3 flex items-center justify-center gap-1.5" role="alert">
+        <span class="material-symbols-outlined text-[16px]">error</span><span id="login-msg-text">Kata laluan salah.</span>
+      </div>
+    </form>
+  </div>
+
+  <p class="relative w-full max-w-sm text-center mt-8 text-[11px] leading-relaxed text-on-surface-variant/80">
+    Sistem Rekod Stor Makmal BPT · Jabatan Mineral dan Geosains Malaysia, Ipoh
+  </p>
+</section>
+
+
+<!-- ================= SKRIN 2: BORANG PERMINTAAN ================= -->
+<section id="app-screen" class="hidden min-h-screen">
+  <div class="w-full max-w-xl mx-auto px-4 pb-32">
+
+    <header class="sticky top-0 z-30 -mx-4 px-4 pt-3 pb-2 bg-surface/90 backdrop-blur-xl">
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <img src="./logo-jmg.png" alt="Logo JMG" class="w-9 h-9 object-contain rounded-lg bg-surface-container-lowest p-0.5 shadow-sm"/>
+          <div class="min-w-0">
+            <h1 class="text-[17px] leading-5 font-bold text-primary truncate">Bilik Penyimpanan</h1>
+            <p class="text-[11px] font-semibold tracking-wide text-outline truncate">Makmal BPT JMG Ipoh</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <button type="button" class="theme-toggle w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low" aria-label="Tukar tema paparan">
+            <span class="material-symbols-outlined text-[20px] theme-icon">dark_mode</span>
+          </button>
+          <button id="logout-button" type="button" aria-label="Log keluar" class="h-11 min-w-[44px] inline-flex items-center justify-center gap-1 px-2 sm:px-3 rounded-lg text-error hover:bg-error-container/40 text-[13px] font-semibold whitespace-nowrap active:scale-95 transition">
+            <span class="material-symbols-outlined text-[20px]">logout</span><span class="hidden sm:inline">Log keluar</span>
+          </button>
+        </div>
+      </div>
+      <div class="relative flex items-center mt-3">
+        <span class="material-symbols-outlined absolute left-3.5 text-outline text-[20px] pointer-events-none">search</span>
+        <input id="item-search-input" type="search" autocomplete="off" placeholder="Cari kod atau nama item..."
+          class="w-full h-12 pl-10 pr-4 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-outline text-[15px] shadow-[0_2px_8px_rgba(11,85,99,0.06)] focus:outline-none focus:ring-2 focus:ring-primary/25"/>
+      </div>
+    </header>
+
+    <div id="message" class="flex flex-col gap-2 my-3" aria-live="polite"></div>
+
+    <form id="form" novalidate class="bg-surface-container-lowest rounded-2xl p-5 shadow-[0_4px_20px_rgba(11,85,99,0.06)] flex flex-col gap-5 mt-2">
+
+      <div class="flex flex-col gap-1.5">
+        <label for="nama-pengguna" class="text-[14px] font-semibold flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-primary text-[18px]">badge</span>Nama Pengguna
+        </label>
+        <div class="relative">
+          <select id="nama-pengguna" name="Nama_Pengguna" required class="w-full h-12 pl-3.5 pr-10 rounded-xl bg-surface-container-low text-on-surface text-[15px] appearance-none focus:outline-none focus:ring-2 focus:ring-primary/25">
+            <option value="">-- Sila pilih nama --</option>
             <option>MOHAMAD ASWANDI BIN ARIFF</option>
             <option>MOHD FUZI BIN HASHIM</option>
             <option>MOHD FAHAMI BIN ABAS</option>
@@ -160,340 +225,457 @@
             <option>MOHD EZRULFAZLY BIN LEMAN</option>
             <option>FARAH NADIRAH BINTI SHALUDIN</option>
           </select>
+          <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
         </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label class="label">Unit Makmal</label>
-      <div class="control">
-        <div class="select is-fullwidth">
-          <select name="Unit_Makmal" required>
-            <option value="">-- Sila Pilih Unit --</option>
-            <option value="MBA">MBA</option>
-            <option value="MPI">MPI</option>
-            <option value="BA">BA</option>
+      <div class="flex flex-col gap-2">
+        <span class="text-[14px] font-semibold flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-primary text-[18px]">science</span>Unit Makmal
+        </span>
+        <div class="grid grid-cols-3 gap-1.5 p-1 bg-surface-container-low rounded-xl" role="radiogroup" aria-label="Unit Makmal">
+          <label class="cursor-pointer"><input class="sr-only peer" type="radio" name="Unit_Makmal" value="MBA"/>
+            <div class="h-11 rounded-lg flex items-center justify-center font-bold text-[14px] text-on-surface-variant transition peer-checked:bg-primary peer-checked:text-on-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40">MBA</div></label>
+          <label class="cursor-pointer"><input class="sr-only peer" type="radio" name="Unit_Makmal" value="MPI"/>
+            <div class="h-11 rounded-lg flex items-center justify-center font-bold text-[14px] text-on-surface-variant transition peer-checked:bg-primary peer-checked:text-on-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40">MPI</div></label>
+          <label class="cursor-pointer"><input class="sr-only peer" type="radio" name="Unit_Makmal" value="BA"/>
+            <div class="h-11 rounded-lg flex items-center justify-center font-bold text-[14px] text-on-surface-variant transition peer-checked:bg-primary peer-checked:text-on-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40">BA</div></label>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <label for="nama-item-select" class="text-[14px] font-semibold flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-primary text-[18px]">inventory_2</span>Item
+          </label>
+          <span id="item-count" class="text-[11px] font-semibold text-secondary"></span>
+        </div>
+        <div class="relative">
+          <select id="nama-item-select" name="Nama_Item" class="w-full h-12 pl-3.5 pr-10 rounded-xl bg-surface-container-low text-on-surface text-[15px] appearance-none focus:outline-none focus:ring-2 focus:ring-primary/25">
+            <option value="">-- Memuatkan senarai item... --</option>
           </select>
+          <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-outline shrink-0">Kod item:</span>
+          <div class="relative flex-1 min-w-0">
+            <select id="kod-item-select" name="Kod_Item" class="w-full h-10 pl-3 pr-8 rounded-lg bg-surface-container-high/60 text-primary text-[13px] font-semibold appearance-none focus:outline-none focus:ring-2 focus:ring-primary/25">
+              <option value="">--</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-primary/70 pointer-events-none text-[18px]">unfold_more</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label class="label">Kod Item</label>
-      <div class="control">
-        <div class="select is-fullwidth">
-          <select name="Kod_Item" id="kod-item-select" required>
-            <option value="">-- Sila Pilih Kod Item --</option>
-          </select>
+      <div id="item-info" class="hidden w-full bg-secondary-container/50 rounded-xl p-3 flex flex-wrap items-center gap-2 text-[13px]">
+        <span id="stock-chip" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-lowest text-secondary font-medium tabular">
+          <span class="material-symbols-outlined text-[16px]">warehouse</span><span id="stock-text">Baki: -</span>
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-medium">
+          <span class="material-symbols-outlined text-[16px]">location_on</span><span id="location-text">Lokasi: -</span>
+        </span>
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <div class="flex items-center justify-between">
+          <label for="qty-input" class="text-[14px] font-semibold flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-primary text-[18px]">pin</span>Kuantiti
+          </label>
+          <span id="max-qty-indicator" class="text-[11px] font-semibold text-outline tabular"></span>
+        </div>
+        <div class="flex items-center bg-surface-container-low rounded-xl p-1 gap-2">
+          <button type="button" id="btn-qty-minus" aria-label="Kurangkan kuantiti" class="w-12 h-12 rounded-lg bg-surface-container-lowest text-primary text-2xl font-bold shadow-sm active:scale-95 transition">−</button>
+          <input id="qty-input" name="Kuantiti" type="number" inputmode="numeric" min="1" max="500" step="1" value="1"
+            class="flex-1 min-w-0 h-12 bg-transparent text-center text-[20px] font-bold tabular focus:outline-none"/>
+          <button type="button" id="btn-qty-plus" aria-label="Tambah kuantiti" class="w-12 h-12 rounded-lg bg-surface-container-lowest text-primary text-2xl font-bold shadow-sm active:scale-95 transition">+</button>
         </div>
       </div>
-    </div>
 
-    <div class="field">
-      <label class="label">Nama Item</label>
-      <div class="control">
-        <div class="select is-fullwidth">
-          <select name="Nama_Item" id="nama-item-select" required>
-            <option value="">-- Nama Item --</option>
-          </select>
-        </div>
-      </div>
-      <p class="help is-info" id="item-info"></p>
-    </div>
-
-    <div class="field">
-      <label class="label">Kuantiti</label>
-      <div class="control">
-        <input class="input" type="number" name="Kuantiti" id="qty-input" required min="1" max="500" step="1" placeholder="1 - 500" />
-      </div>
-    </div>
-
-    <div class="field">
-      <label class="label">Tujuan Kegunaan</label>
-      <div class="control">
-        <textarea class="textarea" name="Tujuan_Kegunaan" placeholder="Maklumat Kegunaan"></textarea>
-      </div>
-    </div>
-
-    <div class="field">
-      <label class="label">Setuju Terma</label>
-      <div class="control">
-        <label class="checkbox">
-          <input type="checkbox" name="Setuju_Terma" value="yes" required />
-          Saya bersetuju dengan terma dan syarat
+      <div class="flex flex-col gap-1.5">
+        <label for="tujuan-kegunaan" class="text-[14px] font-semibold flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-primary text-[18px]">edit_note</span>Tujuan Kegunaan
         </label>
+        <textarea id="tujuan-kegunaan" name="Tujuan_Kegunaan" rows="3" maxlength="300" placeholder="Contoh: Analisis sampel MBA 2026/123"
+          class="w-full p-3.5 rounded-xl bg-surface-container-low text-on-surface placeholder:text-outline text-[15px] resize-none focus:outline-none focus:ring-2 focus:ring-primary/25"></textarea>
       </div>
-    </div>
 
-    <div class="field is-grouped">
-      <div class="control">
-        <button class="button is-primary" type="submit" id="submit-button">Hantar</button>
-      </div>
-      <div class="control">
-        <button class="button is-danger" type="button" id="cancel-button">Batal</button>
-      </div>
-    </div>
-  </form>
-
-  <!-- Mesej status (notifikasi kecil) -->
-  <div id="message" class="container" style="display:none;"></div>
-
-  <!-- Modal carian -->
-  <div class="modal" id="search-modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Hasil Carian</p>
-        <button class="delete" aria-label="close" id="close-modal-button"></button>
-      </header>
-      <section class="modal-card-body" id="modal-content-body"></section>
-      <footer class="modal-card-foot is-justify-content-flex-end">
-        <button class="button is-success" id="ok-modal-button">OK</button>
-      </footer>
-    </div>
+      <label for="setuju-terma" class="flex items-start gap-3 cursor-pointer select-none">
+        <input id="setuju-terma" name="Setuju_Terma" value="yes" type="checkbox" class="mt-0.5 w-5 h-5 rounded accent-[rgb(var(--primary))] shrink-0"/>
+        <span class="text-[13px] leading-snug text-on-surface-variant">Saya bersetuju dengan terma dan syarat pengeluaran stor makmal serta bertanggungjawab ke atas penggunaan barang ini.</span>
+      </label>
+    </form>
   </div>
 
-  <!-- Modal pengesahan selepas hantar -->
-  <div class="modal" id="confirm-modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Permintaan Dihantar</p>
-        <button class="delete" aria-label="close" id="confirm-close-x"></button>
-      </header>
-      <section class="modal-card-body">
-        <p class="mb-2">Maklumat permintaan anda:</p>
-        <div class="content">
-          <p><strong>Item:</strong> <span id="confirm-item">-</span></p>
-          <p><strong>Kuantiti:</strong> <span id="confirm-qty">-</span></p>
-          <p><strong>Ambil di:</strong> <span id="confirm-lokasi">-</span></p>
-          <p><strong>Baki selepas ini:</strong> <span id="confirm-baki">-</span></p>
+  <div class="fixed bottom-0 inset-x-0 z-30 bg-surface-container-lowest/95 backdrop-blur-lg shadow-[0_-4px_20px_rgba(0,0,0,0.06)] pt-3 px-4 pb-safe">
+    <div class="max-w-xl mx-auto flex items-center gap-3">
+      <button id="cancel-button" type="button" class="h-12 px-5 rounded-xl text-on-surface-variant hover:bg-surface-container-low font-semibold active:scale-95 transition">Batal</button>
+      <button id="submit-button" type="submit" form="form" class="flex-1 h-12 rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-semibold shadow-md shadow-primary/20 flex items-center justify-center gap-2 active:scale-[.99] transition disabled:opacity-70">
+        <span class="material-symbols-outlined text-[20px]" id="submit-icon">send</span><span>Hantar Permintaan</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= SKRIN 3: HASIL CARIAN ================= -->
+<div id="search-modal" class="hidden fixed inset-0 z-50" role="dialog" aria-modal="true" aria-labelledby="search-title">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" data-close-search></div>
+  <div class="absolute inset-x-0 bottom-0 sm:inset-0 sm:m-auto sm:h-fit sm:max-h-[80vh] max-w-xl mx-auto bg-surface-container-lowest rounded-t-[28px] sm:rounded-3xl shadow-[0_-12px_36px_rgba(11,85,99,0.18)] flex flex-col max-h-[88vh] overflow-hidden sheet-enter">
+    <div class="w-full flex justify-center pt-3 pb-1 sm:hidden"><div class="w-12 h-1.5 rounded-full bg-outline-variant/70"></div></div>
+    <div class="px-4 pt-2 pb-3 flex items-start justify-between">
+      <div class="min-w-0 pr-2">
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined icon-fill text-primary text-[20px]">manage_search</span>
+          <h2 id="search-title" class="text-[18px] font-semibold">Hasil Carian</h2>
         </div>
-      </section>
-      <footer class="modal-card-foot is-justify-content-flex-end">
-        <button class="button is-success" id="confirm-ok">OK</button>
-      </footer>
+        <p id="search-summary" class="text-[12px] text-on-surface-variant mt-0.5"></p>
+      </div>
+      <button id="close-modal-button" type="button" class="w-11 h-11 shrink-0 rounded-full bg-surface-container-low flex items-center justify-center active:scale-95" aria-label="Tutup carian">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+    <div id="modal-content-body" class="px-4 flex-1 overflow-y-auto space-y-2.5 pb-4"></div>
+    <div class="px-4 pt-3 pb-safe border-t border-outline-variant/30">
+      <button id="ok-modal-button" type="button" class="w-full min-h-[48px] rounded-xl bg-surface-container-low text-primary font-semibold active:scale-[.99]">Tutup</button>
     </div>
   </div>
+</div>
 
 
-  <script>
-    // URL Web App Apps Script (kekal sama selepas "New version" deployment)
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyAtEO6DNB0y_1a2TOrvyA2YwDMGOtZ7C9rtwjliXre44tiT3S71RBZBrBtlYnwGcddVg/exec";
-    const PW_KEY = "bpt_pw"; // kata laluan disimpan sementara dalam sesi tab ini sahaja
+<!-- ================= SKRIN 4: PERMINTAAN DIHANTAR ================= -->
+<div id="confirm-modal" class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" data-close-confirm></div>
+  <div class="relative w-full max-w-sm bg-surface-container-lowest rounded-3xl shadow-xl p-6 flex flex-col items-center overflow-hidden pop">
+    <div class="absolute -right-10 -top-10 w-36 h-36 rounded-full bg-secondary/15 blur-2xl pointer-events-none"></div>
+    <div class="w-full flex justify-end -mt-2 -mr-2">
+      <button id="confirm-close-x" type="button" class="w-11 h-11 rounded-full text-outline hover:bg-surface-container-low flex items-center justify-center" aria-label="Tutup">
+        <span class="material-symbols-outlined text-[20px]">close</span>
+      </button>
+    </div>
+    <div class="relative flex items-center justify-center mb-3">
+      <div class="absolute w-24 h-24 rounded-full bg-secondary/20 animate-ping opacity-50"></div>
+      <div class="absolute w-20 h-20 rounded-full bg-secondary-container"></div>
+      <div class="relative w-16 h-16 rounded-full bg-secondary flex items-center justify-center text-white shadow-md">
+        <span class="material-symbols-outlined icon-fill text-[34px]">check_circle</span>
+      </div>
+    </div>
+    <h2 id="confirm-title" class="text-[18px] font-bold mt-2">Permintaan Dihantar</h2>
+    <p class="text-[12px] text-on-surface-variant text-center mt-1 mb-4">Permintaan anda telah direkodkan dalam sistem stor Makmal BPT JMG Ipoh.</p>
 
-    // ========= Elemen =========
-    const loginBox   = document.getElementById("login-box");
-    const loginBtn   = document.getElementById("login-button");
-    const loginMsg   = document.getElementById("login-msg");
-    const pwInput    = document.getElementById("password-input");
-    const form       = document.getElementById("form");
-    const codeSelect = document.getElementById("kod-item-select");
-    const nameSelect = document.getElementById("nama-item-select");
-    const itemInfo   = document.getElementById("item-info");
-    const qtyInput   = document.getElementById("qty-input");
-    const searchInput  = document.getElementById("item-search-input");
-    const submitButton = document.getElementById("submit-button");
-    const messageDiv   = document.getElementById("message");
-    const searchModal  = document.getElementById("search-modal");
-    const modalContent = document.getElementById("modal-content-body");
+    <div class="w-full rounded-xl bg-surface-container-low p-4 space-y-3 text-[14px]">
+      <div class="flex items-center justify-between gap-3">
+        <span class="text-[12px] text-on-surface-variant flex items-center gap-1 shrink-0"><span class="material-symbols-outlined text-[16px] text-outline">inventory_2</span>Item</span>
+        <span id="confirm-item" class="font-bold text-right">-</span>
+      </div>
+      <div class="h-px bg-surface-container-highest"></div>
+      <div class="flex items-center justify-between gap-3">
+        <span class="text-[12px] text-on-surface-variant flex items-center gap-1 shrink-0"><span class="material-symbols-outlined text-[16px] text-outline">shopping_basket</span>Kuantiti</span>
+        <span id="confirm-qty" class="font-bold tabular">-</span>
+      </div>
+      <div class="h-px bg-surface-container-highest"></div>
+      <div class="flex items-center justify-between gap-3">
+        <span class="text-[12px] text-on-surface-variant flex items-center gap-1 shrink-0"><span class="material-symbols-outlined text-[16px] text-outline">shelves</span>Ambil di</span>
+        <span class="font-semibold text-primary text-right flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">pin_drop</span><span id="confirm-lokasi">-</span></span>
+      </div>
+      <div class="h-px bg-surface-container-highest"></div>
+      <div class="flex items-center justify-between gap-3">
+        <span class="text-[12px] text-on-surface-variant flex items-center gap-1 shrink-0"><span class="material-symbols-outlined text-[16px] text-outline">bar_chart</span>Baki selepas ini</span>
+        <span id="confirm-baki" class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-bold tabular">-</span>
+      </div>
+    </div>
 
-    const confirmModal  = document.getElementById("confirm-modal");
-    const confirmItemEl = document.getElementById("confirm-item");
-    const confirmQtyEl  = document.getElementById("confirm-qty");
-    const confirmLokEl  = document.getElementById("confirm-lokasi");
-    const confirmBakiEl = document.getElementById("confirm-baki");
+    <p id="confirm-time" class="text-[12px] text-outline mt-3 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span><span></span></p>
 
-    let allItems = [];
+    <button id="confirm-ok" type="button" class="mt-4 w-full min-h-[48px] rounded-xl bg-primary hover:bg-primary-hover text-on-primary font-semibold flex items-center justify-center gap-2 active:scale-[.99]">
+      <span>OK</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+    </button>
+  </div>
+</div>
 
-    // ========= Panggilan ke Apps Script =========
-    async function callApi(payload){
-      const res = await fetch(scriptURL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
-      });
-      if(!res.ok) throw new Error("Pelayan tidak dapat dihubungi (" + res.status + ")");
-      return res.json();
+
+<script>
+  // URL Web App Apps Script (kekal sama selepas "New version" deployment)
+  const scriptURL = "https://script.google.com/macros/s/AKfycbyAtEO6DNB0y_1a2TOrvyA2YwDMGOtZ7C9rtwjliXre44tiT3S71RBZBrBtlYnwGcddVg/exec";
+  const PW_KEY = "bpt_pw"; // disimpan sementara dalam sesi tab ini sahaja
+
+  const $ = id => document.getElementById(id);
+  const loginScreen = $("login-screen"), appScreen = $("app-screen");
+  const loginForm = $("login-box"), loginBtn = $("login-button"), loginMsg = $("login-msg");
+  const pwInput = $("password-input");
+  const form = $("form"), codeSelect = $("kod-item-select"), nameSelect = $("nama-item-select");
+  const itemInfo = $("item-info"), qtyInput = $("qty-input"), maxInd = $("max-qty-indicator");
+  const searchInput = $("item-search-input"), searchModal = $("search-modal"), modalContent = $("modal-content-body");
+  const submitButton = $("submit-button"), messageDiv = $("message"), confirmModal = $("confirm-modal");
+
+  let allItems = [];
+
+  /* ---------- Utiliti ---------- */
+  const escapeHtml = s => String(s).replace(/[&<>"']/g, ch => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[ch]));
+  const getPw = () => { try { return sessionStorage.getItem(PW_KEY) || ""; } catch(e) { return ""; } };
+  const setPw = v => { try { v ? sessionStorage.setItem(PW_KEY, v) : sessionStorage.removeItem(PW_KEY); } catch(e) {} };
+  const findItem = code => allItems.find(i => i.code === code);
+  const bakiText = it => (it.baki === null || it.baki === undefined) ? "belum dikira" : it.baki + " " + it.unit;
+
+  async function callApi(payload){
+    const res = await fetch(scriptURL, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
+    if(!res.ok) throw new Error("Pelayan tidak dapat dihubungi (" + res.status + ")");
+    return res.json();
+  }
+
+  /* ---------- Tema ---------- */
+  function applyThemeUI(){
+    const dark = document.documentElement.classList.contains("dark");
+    document.querySelectorAll(".theme-icon").forEach(el => el.textContent = dark ? "light_mode" : "dark_mode");
+    document.querySelectorAll(".theme-text").forEach(el => el.textContent = dark ? "Cerah" : "Gelap");
+    document.querySelector('meta[name="theme-color"]').content = dark ? "#0A1217" : "#0B5563";
+  }
+  document.querySelectorAll(".theme-toggle").forEach(btn => btn.addEventListener("click", () => {
+    const html = document.documentElement, dark = !html.classList.contains("dark");
+    html.classList.toggle("dark", dark); html.classList.toggle("light", !dark);
+    try { localStorage.setItem("bpt_theme", dark ? "dark" : "light"); } catch(e) {}
+    applyThemeUI();
+  }));
+  applyThemeUI();
+
+  /* ---------- Notifikasi ---------- */
+  const TOAST = {
+    info:    { cls:"bg-surface-container-high text-primary", icon:"progress_activity", spin:true },
+    success: { cls:"bg-secondary-container text-on-secondary-container", icon:"check_circle" },
+    danger:  { cls:"bg-error-container text-on-error-container", icon:"error" },
+    warning: { cls:"bg-warn-container text-on-warn-container", icon:"warning" }
+  };
+  let toastTimer;
+  function setMessage(type, text, autoHide){
+    const t = TOAST[type] || TOAST.info;
+    messageDiv.innerHTML =
+      '<div class="flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl shadow-sm pop ' + t.cls + '">' +
+        '<div class="flex items-center gap-2.5 min-w-0">' +
+          '<span class="material-symbols-outlined icon-fill text-[20px] shrink-0' + (t.spin ? ' animate-spin' : '') + '">' + t.icon + '</span>' +
+          '<span class="text-[14px] font-medium">' + escapeHtml(text) + '</span>' +
+        '</div>' +
+        '<button type="button" class="p-1 shrink-0 opacity-70 hover:opacity-100" aria-label="Tutup notifikasi" onclick="this.parentElement.remove()"><span class="material-symbols-outlined text-[18px]">close</span></button>' +
+      '</div>';
+    clearTimeout(toastTimer);
+    if(autoHide) toastTimer = setTimeout(() => { messageDiv.innerHTML = ""; }, autoHide);
+  }
+
+  /* ---------- Log masuk ---------- */
+  function showLoginError(text){
+    $("login-msg-text").textContent = text;
+    loginMsg.classList.remove("hidden");
+  }
+  function showScreen(app){
+    loginScreen.classList.toggle("hidden", app);
+    appScreen.classList.toggle("hidden", !app);
+    window.scrollTo(0, 0);
+  }
+
+  async function doLogin(pw){
+    if(!pw){ pwInput.focus(); return; }
+    loginBtn.disabled = true; $("login-spinner").classList.remove("hidden"); loginMsg.classList.add("hidden");
+    try{
+      const data = await callApi({ action:"login", password: pw });
+      if(data.status !== "success") throw new Error(data.message || "Kata laluan salah.");
+      setPw(pw); pwInput.value = "";
+      showScreen(true);
+      await loadItems();
+    }catch(err){
+      setPw(""); showScreen(false); showLoginError(err.message);
+    }finally{
+      loginBtn.disabled = false; $("login-spinner").classList.add("hidden");
     }
+  }
 
-    function getPw(){ return sessionStorage.getItem(PW_KEY) || ""; }
+  loginForm.addEventListener("submit", e => { e.preventDefault(); doLogin(pwInput.value); });
+  $("toggle-visibility").addEventListener("click", () => {
+    const show = pwInput.type === "password";
+    pwInput.type = show ? "text" : "password";
+    $("visibility-icon").textContent = show ? "visibility" : "visibility_off";
+  });
+  $("logout-button").addEventListener("click", () => {
+    setPw(""); resetForm(); messageDiv.innerHTML = ""; showScreen(false);
+  });
+  if(getPw()) doLogin(getPw());
 
-    // ========= Login =========
-    async function doLogin(pw){
-      loginBtn.classList.add("is-loading"); loginBtn.disabled = true; loginMsg.textContent = "";
-      try{
-        const data = await callApi({ action: "login", password: pw });
-        if(data.status !== "success") throw new Error(data.message || "Kata laluan salah.");
-        sessionStorage.setItem(PW_KEY, pw);
-        pwInput.value = "";
-        loginBox.style.display = "none";
-        form.style.display = "block";
-        await loadItems();
-      }catch(err){
-        sessionStorage.removeItem(PW_KEY);
-        loginBox.style.display = "block";
-        form.style.display = "none";
-        loginMsg.textContent = err.message;
-      }finally{
-        loginBtn.classList.remove("is-loading"); loginBtn.disabled = false;
+  /* ---------- Senarai item ---------- */
+  async function loadItems(){
+    const keep = codeSelect.value;
+    const data = await callApi({ action:"items", password: getPw() });
+    if(data.status !== "success") throw new Error(data.message || "Gagal memuatkan item.");
+    allItems = data.items || [];
+    populateSelects();
+    if(keep && findItem(keep)) selectItem(keep);
+    $("item-count").textContent = allItems.length + " item";
+  }
+
+  function populateSelects(){
+    nameSelect.innerHTML = '<option value="">-- Sila pilih item --</option>';
+    codeSelect.innerHTML = '<option value="">--</option>';
+    allItems.forEach(it => {
+      const habis = it.status === "HABIS";
+      const o1 = new Option(it.name + " (" + it.code + ")" + (habis ? " · HABIS" : ""), it.code);
+      o1.disabled = habis; nameSelect.add(o1);
+      const o2 = new Option(it.code + " - " + it.name, it.code);
+      o2.disabled = habis; codeSelect.add(o2);
+    });
+  }
+
+  function selectItem(code){
+    nameSelect.value = code; codeSelect.value = code;
+    const it = findItem(code);
+    if(!it){ itemInfo.classList.add("hidden"); maxInd.textContent = ""; qtyInput.max = 500; return; }
+    itemInfo.classList.remove("hidden");
+    $("stock-text").textContent = "Baki: " + bakiText(it);
+    $("location-text").textContent = "Lokasi: " + (it.lokasi || "-");
+    const counted = typeof it.baki === "number";
+    $("stock-chip").className = "inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-lowest font-medium tabular " +
+      (!counted ? "text-on-surface-variant" : it.status === "PESAN SEMULA" ? "text-warn" : "text-secondary");
+    const max = counted && it.baki > 0 ? it.baki : 500;
+    qtyInput.max = max;
+    maxInd.textContent = counted ? "Maksimum " + max + " " + it.unit : "Unit: " + it.unit;
+    if(Number(qtyInput.value) > max) qtyInput.value = max;
+  }
+
+  nameSelect.addEventListener("change", () => selectItem(nameSelect.value));
+  codeSelect.addEventListener("change", () => selectItem(codeSelect.value));
+
+  /* ---------- Kuantiti ---------- */
+  const clampQty = v => Math.min(Math.max(1, Math.round(Number(v) || 1)), Number(qtyInput.max) || 500);
+  $("btn-qty-minus").addEventListener("click", () => { qtyInput.value = clampQty(Number(qtyInput.value) - 1); });
+  $("btn-qty-plus").addEventListener("click", () => { qtyInput.value = clampQty(Number(qtyInput.value) + 1); });
+  qtyInput.addEventListener("change", () => { qtyInput.value = clampQty(qtyInput.value); });
+
+  /* ---------- Carian ---------- */
+  const STATUS_STYLE = {
+    "OK":           { pill:"bg-secondary-container text-on-secondary-container", bar:"border-l-secondary", icon:"inventory_2", iconBg:"bg-secondary-container/60 text-on-secondary-container" },
+    "PESAN SEMULA": { pill:"bg-warn-container text-on-warn-container", bar:"border-l-warn", icon:"inventory", iconBg:"bg-warn-container/70 text-on-warn-container" },
+    "HABIS":        { pill:"bg-error-container text-on-error-container", bar:"border-l-error", icon:"block", iconBg:"bg-error-container/50 text-on-error-container" },
+    "BELUM DIKIRA": { pill:"bg-surface-container-high text-on-surface-variant", bar:"border-l-outline-variant", icon:"pending", iconBg:"bg-surface-container-high text-on-surface-variant" }
+  };
+
+  function openSearch(){ searchModal.classList.remove("hidden"); document.body.style.overflow = "hidden"; }
+  function closeSearch(){ searchModal.classList.add("hidden"); document.body.style.overflow = ""; }
+
+  function renderResults(term){
+    const t = term.toLowerCase();
+    const results = allItems.filter(i => i.code.toLowerCase().includes(t) || i.name.toLowerCase().includes(t));
+    $("search-summary").textContent = results.length
+      ? "Menunjukkan " + Math.min(results.length, 50) + " daripada " + results.length + " item sepadan '" + term + "'"
+      : "";
+    if(!results.length){
+      modalContent.innerHTML =
+        '<div class="rounded-xl p-6 text-center bg-surface-container-low flex flex-col items-center">' +
+          '<div class="w-14 h-14 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-sm text-primary mb-3">' +
+            '<span class="material-symbols-outlined text-[28px]">search_off</span></div>' +
+          '<p class="text-[14px] font-semibold">Tiada hasil carian ditemui.</p>' +
+          '<p class="text-[12px] text-on-surface-variant mt-1 max-w-[260px]">Sila semak ejaan kod atau nama item.</p>' +
+        '</div>';
+      return;
+    }
+    modalContent.innerHTML = results.slice(0, 50).map(it => {
+      const s = STATUS_STYLE[it.status] || STATUS_STYLE["BELUM DIKIRA"];
+      const habis = it.status === "HABIS";
+      return '<button type="button" data-code="' + escapeHtml(it.code) + '"' + (habis ? ' disabled aria-disabled="true"' : '') +
+        ' class="result-row w-full text-left rounded-xl p-3.5 border-l-4 ' + s.bar + ' transition ' +
+        (habis ? 'bg-surface-container-low/60 opacity-60 cursor-not-allowed' : 'bg-surface-container-lowest shadow-sm hover:bg-surface-container-low active:scale-[.99]') + '">' +
+        '<div class="flex items-start justify-between gap-2">' +
+          '<div class="flex items-start gap-2.5 min-w-0">' +
+            '<div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ' + s.iconBg + '"><span class="material-symbols-outlined text-[20px]">' + s.icon + '</span></div>' +
+            '<div class="min-w-0">' +
+              '<p class="text-[14px] font-semibold ' + (habis ? 'line-through text-outline' : '') + '">' + escapeHtml(it.name) + '</p>' +
+              '<p class="text-[12px] text-on-surface-variant mt-0.5 tabular">Kod: ' + escapeHtml(it.code) + ' · Baki: ' + escapeHtml(bakiText(it)) + '</p>' +
+              (it.lokasi ? '<p class="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold bg-surface-container text-on-surface-variant"><span class="material-symbols-outlined text-[13px]">shelves</span>' + escapeHtml(it.lokasi) + '</p>' : '') +
+            '</div>' +
+          '</div>' +
+          '<span class="shrink-0 px-2.5 py-1 rounded-full text-[11px] font-bold ' + s.pill + '">' + escapeHtml(it.status || "-") + '</span>' +
+        '</div></button>';
+    }).join("");
+  }
+
+  searchInput.addEventListener("input", e => {
+    const term = e.target.value.trim();
+    if(term.length){ renderResults(term); openSearch(); } else { closeSearch(); }
+  });
+  modalContent.addEventListener("click", e => {
+    const row = e.target.closest(".result-row");
+    if(!row || row.disabled) return;
+    selectItem(row.dataset.code);
+    closeSearch(); searchInput.value = "";
+    nameSelect.scrollIntoView({ behavior:"smooth", block:"center" });
+  });
+  $("close-modal-button").addEventListener("click", closeSearch);
+  $("ok-modal-button").addEventListener("click", closeSearch);
+  searchModal.querySelector("[data-close-search]").addEventListener("click", closeSearch);
+
+  /* ---------- Hantar ---------- */
+  function resetForm(){
+    form.reset(); qtyInput.value = 1; qtyInput.max = 500;
+    itemInfo.classList.add("hidden"); maxInd.textContent = "";
+  }
+
+  function validate(){
+    if(!form.Nama_Pengguna.value) return "Sila pilih Nama Pengguna.";
+    if(!form.querySelector('input[name="Unit_Makmal"]:checked')) return "Sila pilih Unit Makmal.";
+    if(!findItem(codeSelect.value)) return "Sila pilih item.";
+    const q = Number(qtyInput.value);
+    if(!Number.isInteger(q) || q < 1) return "Kuantiti mesti sekurang-kurangnya 1.";
+    if(q > Number(qtyInput.max)) return "Kuantiti melebihi baki (" + qtyInput.max + ").";
+    if(!$("setuju-terma").checked) return "Sila tandakan persetujuan terma dan syarat.";
+    return "";
+  }
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    if(!getPw()){ showScreen(false); return; }
+    const err = validate();
+    if(err){ setMessage("warning", err, 5000); messageDiv.scrollIntoView({ behavior:"smooth", block:"center" }); return; }
+
+    const it = findItem(codeSelect.value);
+    const unit = form.querySelector('input[name="Unit_Makmal"]:checked').value;
+    const obj = {
+      action:"submit", password:getPw(),
+      Nama_Pengguna: form.Nama_Pengguna.value,
+      Unit_Makmal: unit,
+      Kod_Item: it.code, Nama_Item: it.name,
+      Kuantiti: Number(qtyInput.value),
+      Tujuan_Kegunaan: $("tujuan-kegunaan").value,
+      Setuju_Terma: "yes"
+    };
+
+    setMessage("info", "Sedang menghantar...");
+    submitButton.disabled = true; $("submit-icon").textContent = "progress_activity"; $("submit-icon").classList.add("animate-spin");
+    try{
+      const data = await callApi(obj);
+      if(data.status !== "success"){
+        if(data.code === "AUTH"){ setPw(""); showScreen(false); showLoginError("Sesi tamat. Sila log masuk semula."); }
+        throw new Error(data.message || "Gagal dihantar.");
       }
+      $("confirm-item").textContent = data.item + " (" + data.kod + ")";
+      $("confirm-qty").textContent = data.kuantiti + " " + (data.unit || "");
+      $("confirm-lokasi").textContent = data.lokasi || "-";
+      $("confirm-baki").textContent = (data.bakiBaru === null || data.bakiBaru === undefined) ? "belum dikira" : data.bakiBaru + " " + (data.unit || "");
+      $("confirm-time").lastElementChild.textContent = new Date().toLocaleString("ms-MY", { day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit" });
+      confirmModal.classList.remove("hidden");
+      setMessage("success", "Permintaan berjaya dihantar.", 5000);
+      const keepName = form.Nama_Pengguna.value;
+      resetForm();
+      form.Nama_Pengguna.value = keepName; // nama & unit kekal untuk permintaan seterusnya
+      form.querySelector('input[name="Unit_Makmal"][value="' + unit + '"]').checked = true;
+      loadItems().catch(() => {});
+    }catch(err){
+      setMessage("danger", "Ralat: " + err.message);
+    }finally{
+      submitButton.disabled = false; $("submit-icon").textContent = "send"; $("submit-icon").classList.remove("animate-spin");
     }
+  });
 
-    loginBtn.addEventListener("click", () => doLogin(pwInput.value));
-    pwInput.addEventListener("keydown", e => { if(e.key === "Enter"){ e.preventDefault(); doLogin(pwInput.value); } });
-    if(getPw()) doLogin(getPw()); // sambung semula jika tab dimuat semula
+  $("cancel-button").addEventListener("click", () => { resetForm(); messageDiv.innerHTML = ""; window.scrollTo({ top:0, behavior:"smooth" }); });
 
-    document.getElementById("logout-button").addEventListener("click", () => {
-      sessionStorage.removeItem(PW_KEY);
-      form.reset(); itemInfo.textContent = "";
-      form.style.display = "none";
-      loginBox.style.display = "block";
-    });
-
-    // ========= Senarai item dari Senarai Stok =========
-    async function loadItems(){
-      setMessage("info", "Memuatkan senarai item...");
-      const data = await callApi({ action: "items", password: getPw() });
-      if(data.status !== "success") throw new Error(data.message || "Gagal memuatkan item.");
-      allItems = data.items || [];
-      populateSelects(allItems);
-      messageDiv.style.display = "none";
-    }
-
-    function bakiText(it){
-      if(it.baki === null || it.baki === undefined) return "belum dikira";
-      return it.baki + " " + it.unit;
-    }
-
-    function populateSelects(items){
-      codeSelect.innerHTML = '<option value="">-- Sila Pilih Kod Item --</option>';
-      nameSelect.innerHTML = '<option value="">-- Nama Item --</option>';
-      items.forEach(it => {
-        const habis = it.status === "HABIS";
-        const o1 = document.createElement("option");
-        o1.value = it.code;
-        o1.textContent = it.code + (habis ? " (HABIS)" : "");
-        o1.disabled = habis;
-        codeSelect.appendChild(o1);
-
-        const o2 = document.createElement("option");
-        o2.value = it.code;               // nilai = kod supaya nama berulang tidak keliru
-        o2.textContent = it.name + (habis ? " (HABIS)" : "");
-        o2.disabled = habis;
-        nameSelect.appendChild(o2);
-      });
-    }
-
-    function findItem(code){ return allItems.find(i => i.code === code); }
-
-    function showItemInfo(code){
-      const it = findItem(code);
-      if(!it){ itemInfo.textContent = ""; qtyInput.removeAttribute("max"); return; }
-      itemInfo.textContent = "Baki: " + bakiText(it) + "  |  Lokasi: " + (it.lokasi || "-");
-      if(typeof it.baki === "number" && it.baki > 0) qtyInput.max = it.baki; else qtyInput.max = 500;
-      qtyInput.placeholder = "1 - " + qtyInput.max + (it.unit ? " (" + it.unit + ")" : "");
-    }
-
-    codeSelect.addEventListener("change", () => { nameSelect.value = codeSelect.value; showItemInfo(codeSelect.value); });
-    nameSelect.addEventListener("change", () => { codeSelect.value = nameSelect.value; showItemInfo(nameSelect.value); });
-
-    // ========= Carian (kod atau nama) =========
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
-    }
-
-    function showSearchResults(results){
-      if(results.length === 0){
-        modalContent.innerHTML = '<p class="has-text-centered">Tiada hasil carian ditemui.</p>';
-      }else{
-        modalContent.innerHTML = results.slice(0, 50).map(it => `
-          <div class="search-result-item" data-code="${escapeHtml(it.code)}">
-            <p>${escapeHtml(it.name)}</p>
-            <span>Kod: ${escapeHtml(it.code)} · Baki: ${escapeHtml(bakiText(it))}${it.status === "HABIS" ? " · HABIS" : ""}</span>
-          </div>`).join("");
-      }
-      searchModal.classList.add("is-active");
-    }
-
-    modalContent.addEventListener("click", e => {
-      const row = e.target.closest(".search-result-item");
-      if(!row) return;
-      const it = findItem(row.dataset.code);
-      if(!it || it.status === "HABIS"){ return; }
-      codeSelect.value = it.code; nameSelect.value = it.code; showItemInfo(it.code);
-      searchModal.classList.remove("is-active");
-      searchInput.value = "";
-    });
-
-    searchInput.addEventListener("input", e => {
-      const term = e.target.value.trim().toLowerCase();
-      if(term.length > 0){
-        showSearchResults(allItems.filter(i => i.code.toLowerCase().includes(term) || i.name.toLowerCase().includes(term)));
-      }else{
-        searchModal.classList.remove("is-active");
-      }
-    });
-
-    // ========= Notifikasi =========
-    function setMessage(type, text){
-      messageDiv.innerHTML = '<div class="notification is-' + type + '">' + escapeHtml(text) + '</div>';
-      messageDiv.style.display = "block";
-    }
-
-    // ========= Hantar borang =========
-    form.addEventListener("submit", async e => {
-      e.preventDefault();
-      if(!getPw()){ setMessage("danger", "Sila log masuk dahulu."); return; }
-
-      const fd = new FormData(form);
-      const obj = { action: "submit", password: getPw() };
-      for(const [k, v] of fd.entries()) obj[k] = v;
-      obj.Kod_Item = codeSelect.value;
-      const it = findItem(obj.Kod_Item);
-      if(!it){ setMessage("danger", "Sila pilih item."); return; }
-      obj.Nama_Item = it.name;
-      obj.Kuantiti = Number(obj.Kuantiti);
-
-      setMessage("info", "Sedang menghantar...");
-      submitButton.disabled = true; submitButton.classList.add("is-loading");
-      try{
-        const data = await callApi(obj);
-        if(data.status === "success"){
-          confirmItemEl.textContent = data.item + " (" + data.kod + ")";
-          confirmQtyEl.textContent  = data.kuantiti + " " + (data.unit || "");
-          confirmLokEl.textContent  = data.lokasi || "-";
-          confirmBakiEl.textContent = data.bakiBaru === null ? "belum dikira" : data.bakiBaru + " " + (data.unit || "");
-          confirmModal.classList.add("is-active");
-          setMessage("success", "Permintaan berjaya dihantar.");
-          form.reset(); itemInfo.textContent = "";
-          loadItems().catch(() => {}); // segarkan baki
-        }else{
-          if(data.code === "AUTH"){ sessionStorage.removeItem(PW_KEY); form.style.display = "none"; loginBox.style.display = "block"; }
-          throw new Error(data.message || "Gagal dihantar");
-        }
-      }catch(err){
-        setMessage("danger", "Ralat: " + err.message);
-      }finally{
-        submitButton.disabled = false; submitButton.classList.remove("is-loading");
-        setTimeout(() => { messageDiv.style.display = "none"; }, 5000);
-      }
-    });
-
-    document.getElementById("cancel-button").addEventListener("click", () => {
-      form.reset(); itemInfo.textContent = ""; messageDiv.style.display = "none";
-    });
-
-    // ========= Tutup modal =========
-    const closeSearch = () => searchModal.classList.remove("is-active");
-    document.getElementById("close-modal-button").addEventListener("click", closeSearch);
-    document.getElementById("ok-modal-button").addEventListener("click", closeSearch);
-    document.querySelector("#search-modal .modal-background").addEventListener("click", closeSearch);
-
-    const closeConfirm = () => confirmModal.classList.remove("is-active");
-    document.getElementById("confirm-ok").addEventListener("click", closeConfirm);
-    document.getElementById("confirm-close-x").addEventListener("click", closeConfirm);
-    confirmModal.querySelector(".modal-background").addEventListener("click", closeConfirm);
-  </script>
+  const closeConfirm = () => confirmModal.classList.add("hidden");
+  $("confirm-ok").addEventListener("click", closeConfirm);
+  $("confirm-close-x").addEventListener("click", closeConfirm);
+  confirmModal.querySelector("[data-close-confirm]").addEventListener("click", closeConfirm);
+  document.addEventListener("keydown", e => { if(e.key === "Escape"){ closeSearch(); closeConfirm(); } });
+</script>
 </body>
 </html>
