@@ -267,13 +267,16 @@
         </div>
       </div>
 
-      <div id="item-info" class="hidden w-full bg-secondary-container/50 rounded-xl p-3 flex flex-wrap items-center gap-2 text-[13px]">
-        <span id="stock-chip" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-lowest text-secondary font-medium tabular">
-          <span class="material-symbols-outlined text-[16px]">warehouse</span><span id="stock-text">Baki: -</span>
-        </span>
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-medium">
-          <span class="material-symbols-outlined text-[16px]">location_on</span><span id="location-text">Lokasi: -</span>
-        </span>
+      <div id="item-info" class="hidden w-full bg-secondary-container/50 rounded-xl p-3 flex items-center gap-3 text-[13px]">
+        <button type="button" id="item-photo" class="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-surface-container-lowest shadow-sm flex items-center justify-center" aria-label="Besarkan gambar item"></button>
+        <div class="flex flex-col items-start gap-2 min-w-0">
+          <span id="stock-chip" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-lowest text-secondary font-medium tabular">
+            <span class="material-symbols-outlined text-[16px]">warehouse</span><span id="stock-text">Baki: -</span>
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-medium">
+            <span class="material-symbols-outlined text-[16px]">location_on</span><span id="location-text">Lokasi: -</span>
+          </span>
+        </div>
       </div>
 
       <div class="flex flex-col gap-1.5">
@@ -362,6 +365,13 @@
     <h2 id="confirm-title" class="text-[18px] font-bold mt-2">Permintaan Dihantar</h2>
     <p class="text-[12px] text-on-surface-variant text-center mt-1 mb-4">Permintaan anda telah direkodkan dalam sistem stor Makmal BPT JMG Ipoh.</p>
 
+    <div id="confirm-photo" class="hidden w-full h-28 rounded-xl overflow-hidden mb-3 relative shadow-sm">
+      <img alt="" class="w-full h-full object-cover"/>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent flex items-end p-2.5">
+        <span class="text-white text-[12px] font-semibold flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">photo_camera</span>Cari barang ini di rak</span>
+      </div>
+    </div>
+
     <div class="w-full rounded-xl bg-surface-container-low p-4 space-y-3 text-[14px]">
       <div class="flex items-center justify-between gap-3">
         <span class="text-[12px] text-on-surface-variant flex items-center gap-1 shrink-0"><span class="material-symbols-outlined text-[16px] text-outline">inventory_2</span>Item</span>
@@ -393,6 +403,15 @@
 </div>
 
 
+<!-- ================= PAPARAN GAMBAR PENUH ================= -->
+<div id="photo-viewer" class="hidden fixed inset-0 z-[60] bg-black/85 flex flex-col items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Gambar item">
+  <button type="button" id="photo-close" class="absolute top-3 right-3 w-11 h-11 rounded-full bg-white/15 text-white flex items-center justify-center" aria-label="Tutup gambar">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  <img id="photo-full" alt="" class="max-w-full max-h-[75vh] rounded-xl object-contain shadow-2xl"/>
+  <p id="photo-caption" class="text-white text-[14px] font-semibold mt-3 text-center"></p>
+</div>
+
 <script>
   // URL Web App Apps Script (kekal sama selepas "New version" deployment)
   const scriptURL = "https://script.google.com/macros/s/AKfycbyAtEO6DNB0y_1a2TOrvyA2YwDMGOtZ7C9rtwjliXre44tiT3S71RBZBrBtlYnwGcddVg/exec";
@@ -415,6 +434,33 @@
   const setPw = v => { try { v ? sessionStorage.setItem(PW_KEY, v) : sessionStorage.removeItem(PW_KEY); } catch(e) {} };
   const findItem = code => allItems.find(i => i.code === code);
   const bakiText = it => (it.baki === null || it.baki === undefined) ? "belum dikira" : it.baki + " " + it.unit;
+
+  /* ---------- Gambar item (fail img/KOD.jpg dalam repo) ---------- */
+  const IMG_DIR = "./img/";
+  const noPhoto = new Set(); // kod yang tiada gambar, supaya tak cuba muat berulang kali
+  const photoUrl = code => IMG_DIR + encodeURIComponent(code) + ".jpg";
+  function thumbInner(it, icon){
+    if(noPhoto.has(it.code)) return '<span class="material-symbols-outlined text-[22px]">' + icon + '</span>';
+    return '<img src="' + photoUrl(it.code) + '" alt="" loading="lazy" decoding="async" class="w-full h-full object-cover"' +
+      ' data-code="' + escapeHtml(it.code) + '" data-icon="' + icon + '" onerror="photoFail(this)">';
+  }
+  window.photoFail = img => {
+    noPhoto.add(img.dataset.code);
+    const s = document.createElement("span");
+    s.className = "material-symbols-outlined text-[22px]"; s.textContent = img.dataset.icon;
+    img.replaceWith(s);
+  };
+  function openPhoto(code){
+    const it = findItem(code);
+    if(!it || noPhoto.has(code)) return;
+    $("photo-full").src = photoUrl(code);
+    $("photo-full").alt = it.name;
+    $("photo-caption").textContent = it.name + " (" + it.code + ")";
+    $("photo-viewer").classList.remove("hidden");
+  }
+  const closePhoto = () => $("photo-viewer").classList.add("hidden");
+  $("photo-close").addEventListener("click", closePhoto);
+  $("photo-viewer").addEventListener("click", e => { if(e.target.id === "photo-viewer") closePhoto(); });
 
   async function callApi(payload){
     const res = await fetch(scriptURL, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
@@ -525,6 +571,8 @@
     const it = findItem(code);
     if(!it){ itemInfo.classList.add("hidden"); maxInd.textContent = ""; qtyInput.max = 500; return; }
     itemInfo.classList.remove("hidden");
+    $("item-photo").innerHTML = thumbInner(it, "image_not_supported");
+    $("item-photo").dataset.code = it.code;
     $("stock-text").textContent = "Baki: " + bakiText(it);
     $("location-text").textContent = "Lokasi: " + (it.lokasi || "-");
     const counted = typeof it.baki === "number";
@@ -536,6 +584,7 @@
     if(Number(qtyInput.value) > max) qtyInput.value = max;
   }
 
+  $("item-photo").addEventListener("click", () => openPhoto($("item-photo").dataset.code));
   nameSelect.addEventListener("change", () => selectItem(nameSelect.value));
   codeSelect.addEventListener("change", () => selectItem(codeSelect.value));
 
@@ -580,7 +629,7 @@
         (habis ? 'bg-surface-container-low/60 opacity-60 cursor-not-allowed' : 'bg-surface-container-lowest shadow-sm hover:bg-surface-container-low active:scale-[.99]') + '">' +
         '<div class="flex items-start justify-between gap-2">' +
           '<div class="flex items-start gap-2.5 min-w-0">' +
-            '<div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ' + s.iconBg + '"><span class="material-symbols-outlined text-[20px]">' + s.icon + '</span></div>' +
+            '<div class="w-16 h-16 rounded-lg overflow-hidden flex items-center justify-center shrink-0 ' + s.iconBg + (habis ? ' grayscale' : '') + '">' + thumbInner(it, s.icon) + '</div>' +
             '<div class="min-w-0">' +
               '<p class="text-[14px] font-semibold ' + (habis ? 'line-through text-outline' : '') + '">' + escapeHtml(it.name) + '</p>' +
               '<p class="text-[12px] text-on-surface-variant mt-0.5 tabular">Kod: ' + escapeHtml(it.code) + ' · Baki: ' + escapeHtml(bakiText(it)) + '</p>' +
@@ -654,6 +703,13 @@
       $("confirm-qty").textContent = data.kuantiti + " " + (data.unit || "");
       $("confirm-lokasi").textContent = data.lokasi || "-";
       $("confirm-baki").textContent = (data.bakiBaru === null || data.bakiBaru === undefined) ? "belum dikira" : data.bakiBaru + " " + (data.unit || "");
+      const cp = $("confirm-photo"), cpImg = cp.querySelector("img");
+      cp.classList.add("hidden"); cpImg.removeAttribute("src");
+      if(!noPhoto.has(data.kod)){
+        cpImg.onload = () => cp.classList.remove("hidden");
+        cpImg.onerror = () => { noPhoto.add(data.kod); cp.classList.add("hidden"); };
+        cpImg.src = photoUrl(data.kod);
+      }
       $("confirm-time").lastElementChild.textContent = new Date().toLocaleString("ms-MY", { day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit" });
       confirmModal.classList.remove("hidden");
       setMessage("success", "Permintaan berjaya dihantar.", 5000);
@@ -675,7 +731,7 @@
   $("confirm-ok").addEventListener("click", closeConfirm);
   $("confirm-close-x").addEventListener("click", closeConfirm);
   confirmModal.querySelector("[data-close-confirm]").addEventListener("click", closeConfirm);
-  document.addEventListener("keydown", e => { if(e.key === "Escape"){ closeSearch(); closeConfirm(); } });
+  document.addEventListener("keydown", e => { if(e.key === "Escape"){ closePhoto(); closeSearch(); closeConfirm(); } });
 </script>
 </body>
 </html>
